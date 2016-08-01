@@ -62,7 +62,8 @@ $route['owner/home']             = "SuperAdmin/index";
 	$route['owner/register.user']    = "SuperAdmin/add_user";
 	$route['owner/users.all']        = "SuperAdmin/user_list";
 	$route['owner/user.view/(:any)'] = "SuperAdmin/single_user/$1";
-
+	$route['owner/user.edit/(:any)'] = "SuperAdmin/single_edit_user/$1";
+	
 	// AREA ROUTES
 	$route['owner/register.area']    = "SuperAdmin/add_area";
 	$route['owner/area.all']         = "SuperAdmin/area_list";

@@ -110,6 +110,65 @@ class SuperAdmin extends MY_Controller {
 
 	}
 
+	public function single_edit_user($user_id = '')
+	{
+		if (empty($user_id) or !is_numeric($user_id)) {
+			$this->session->set_flashdata('failure', 'Please select a user first');
+			redirect('owner/users.all');
+		}
+
+		$this->load->model('UserLibrary');
+
+		$u_obj          = new STDClass;
+		$u_obj->start   = 0;
+		$u_obj->end     = 1000; 
+		$u_obj->user_id = $user_id;
+		$u_obj->load    = array('added_by');
+
+		$data['user_data'] = $this->UserLibrary->get_all($u_obj);
+		if($this->__preCheckAuthenticateUserEdit())
+		{
+			$this->load->model('User/UserModel');
+			if ( ($this->UserModel->edit_user($user_id)) !=  NULL) 
+			{
+				$this->session->set_flashdata('success', 'User edited successfully');
+				redirect('owner/users.all');
+
+			}else{
+				$this->session->set_flashdata('failure', 'There is a problem while editing user');
+				$this->load->view('Owner/Users/user-edit-single', $data);
+			}
+			
+		}else{
+			$this->load->view('Owner/Users/user-edit-single',$data);
+		}
+
+	}
+
+	private function __preCheckAuthenticateUserEdit()
+	{
+		if (!empty($this->input->post('password'))) {
+			$this->form_validation->set_rules('password','Password','required|xss_clean|trim|min_length[5]|max_length[12]|matches[confirmPassword]');
+			$this->form_validation->set_rules('confirmPassword','Confirm Password','required|xss_clean|trim|matches[password]');
+		} else {
+			$this->form_validation->set_rules('password','Password','xss_clean|trim|min_length[5]|max_length[12]|matches[confirmPassword]');
+			$this->form_validation->set_rules('confirmPassword','Confirm Password','xss_clean|trim|matches[password]');
+		}
+		
+		$this->form_validation->set_rules('gender','Gender','required|xss_clean|trim');
+		$this->form_validation->set_rules('contact_no','Contact No','required|xss_clean|trim');
+		$this->form_validation->set_rules('role','Role','required|xss_clean|trim');
+		$this->form_validation->set_rules('status','Status','required|xss_clean|trim');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+
+		if( $this->form_validation->run() === FALSE ){
+			return false;
+		}else{
+			return true;
+		}
+	
+	}
+	
 	public function add_area()
 	{
 		$data['active_nav'] = "add_area";
