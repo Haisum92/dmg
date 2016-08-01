@@ -355,9 +355,9 @@
 				</div><!-- /.top-navbar-inner -->
 			</div><!-- /.top-navbar -->
 			<!-- END TOP NAV -->
-
-			<?php $this->load->view('owner/common/top-navigation');?>	
-						
+			
+			<?php $this->load->view('owner/common/top-navigation');?>
+			
 			<!-- BEGIN SIDEBAR RIGHT HEADING -->
 			<div class="sidebar-right-heading">
 				<ul class="nav nav-tabs square nav-justified">
@@ -677,14 +677,14 @@
 				<div class="container-fluid">
 				
 				<!-- Begin page heading -->
-					<h1 class="page-heading">User Managment <!-- <small>Sub heading here</small> --></h1>
+					<h1 class="page-heading">Area Managment <!-- <small>Sub heading here</small> --></h1>
 					<!-- End page heading -->
 				
 					<!-- Begin breadcrumb -->
 					<ol class="breadcrumb default square rsaquo sm">
 						<li><a href="<?php echo base_url();?>"><i class="fa fa-home"></i></a></li>
-						<li><a href="<?php echo base_url('owner/users.all');?>">User</a></li>
-						<li class="active">All Users</li>
+						<li><a href="<?php echo base_url('owner/area.all');?>">Areas</a></li>
+						<li class="active">All Areas</li>
 					</ol>
 					<!-- End breadcrumb -->
 
@@ -705,38 +705,25 @@
 							<thead class="the-box dark full">
 								<tr>
 									<th>Sr #</th>
-									<th>Full Name</th>
-									<th>Email</th>
-									<th>Gender</th>
-									<th>Contact #</th>
-									<th>Role</th>
-									<!-- <th>Added By</th> -->
+									<th>Title</th>
 									<th>Status</th>
+									<th>Added By</th>
 									<th>Added Date</th>
 									<th>Options</th>
 								</tr>
 							</thead>
 							<tbody>
 
-								<?php foreach ($user_list as $key => $user)
+								<?php foreach ($area_list as $key => $area)
 								{?>
 									<tr class="<?php if($key %2 == 0){ ?>even <?php } else{?> odd <?php } ?>">
 										<td><?php echo $key+1;?></td>
-										<td><?php echo $user->full_name;?></td>
-										<td><?php echo $user->email;?></td>
-										<td><?php echo ucfirst($user->gender);?></td>
-										<td><?php echo ucfirst($user->contact_no);?></td>
-										<td><?php 
-											if ($user->role == 'admin')
-												echo "Manager";
-											elseif($user->role == 'enduser')
-												echo "User";
-											?>
-										</td>
-										<td><?php echo ucfirst($user->status);?></td>
-										<td><?php echo $user->date_added;?></td>
+										<td><?php echo $area->title;?></td>
+										<td><?php echo ucfirst($area->status);?></td>
+										<td><?php echo $area->add_by;?></td>
+										<td><?php echo $area->date_added;?></td>
 										<td>
-											<button class="btn btn-info btn-perspective" onclick="window.location.href='user.view/<?php echo $user->u_id;?>';">View</button>
+											<button class="btn btn-info btn-perspective" onclick="window.location.href='area.view/<?php echo $area->a_id;?>';">View</button>
 											<button class="btn btn-warning btn-perspective">Edit</button>
 											<button class="btn btn-danger btn-perspective">Delete</button>
 										</td>

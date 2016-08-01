@@ -355,9 +355,9 @@
 				</div><!-- /.top-navbar-inner -->
 			</div><!-- /.top-navbar -->
 			<!-- END TOP NAV -->
-
-			<?php $this->load->view('owner/common/top-navigation');?>	
-						
+			
+			<?php $this->load->view('owner/common/top-navigation');?>			
+			
 			<!-- BEGIN SIDEBAR RIGHT HEADING -->
 			<div class="sidebar-right-heading">
 				<ul class="nav nav-tabs square nav-justified">
@@ -677,19 +677,25 @@
 				<div class="container-fluid">
 				
 				<!-- Begin page heading -->
-					<h1 class="page-heading">User Managment <!-- <small>Sub heading here</small> --></h1>
+					<h1 class="page-heading">Menu Managment <!-- <small>Sub heading here</small> --></h1>
 					<!-- End page heading -->
 				
 					<!-- Begin breadcrumb -->
 					<ol class="breadcrumb default square rsaquo sm">
 						<li><a href="<?php echo base_url();?>"><i class="fa fa-home"></i></a></li>
-						<li><a href="<?php echo base_url('owner/users.all');?>">User</a></li>
-						<li class="active">All Users</li>
+						<li><a href="<?php echo base_url('owner/area.all');?>">Menus</a></li>
+						<li>All Menus</li>
 					</ol>
 					<!-- End breadcrumb -->
 
+					<?php
+
+					/*echo '<pre>';print_r($user_list);echo '</pre>';
+					die('yoho!');*/
+					?>
 					<!-- BEGIN DATA TABLE -->
 					<div class="the-box">
+						
 						<?php if ($this->session->flashdata('success') != ""){?>
                             <div class="alert alert-success">
                                 <?php echo $this->session->flashdata('success');?>
@@ -700,53 +706,42 @@
                                 <?php echo $this->session->flashdata('failure');?>
                             </div>
                         <?php }?>
-						<div class="table-responsive">
-						<table class="table table-striped table-hover" id="datatable-example">
-							<thead class="the-box dark full">
-								<tr>
-									<th>Sr #</th>
-									<th>Full Name</th>
-									<th>Email</th>
-									<th>Gender</th>
-									<th>Contact #</th>
-									<th>Role</th>
-									<!-- <th>Added By</th> -->
-									<th>Status</th>
-									<th>Added Date</th>
-									<th>Options</th>
-								</tr>
-							</thead>
-							<tbody>
 
-								<?php foreach ($user_list as $key => $user)
-								{?>
-									<tr class="<?php if($key %2 == 0){ ?>even <?php } else{?> odd <?php } ?>">
-										<td><?php echo $key+1;?></td>
-										<td><?php echo $user->full_name;?></td>
-										<td><?php echo $user->email;?></td>
-										<td><?php echo ucfirst($user->gender);?></td>
-										<td><?php echo ucfirst($user->contact_no);?></td>
-										<td><?php 
-											if ($user->role == 'admin')
-												echo "Manager";
-											elseif($user->role == 'enduser')
-												echo "User";
-											?>
-										</td>
-										<td><?php echo ucfirst($user->status);?></td>
-										<td><?php echo $user->date_added;?></td>
-										<td>
-											<button class="btn btn-info btn-perspective" onclick="window.location.href='user.view/<?php echo $user->u_id;?>';">View</button>
-											<button class="btn btn-warning btn-perspective">Edit</button>
-											<button class="btn btn-danger btn-perspective">Delete</button>
-										</td>
-									</tr>
-								<?php }?>
+                        <div class="row">
+	                        <div class="col-lg-12">
+	                        	<div class="row">
+	                        		<div class="col-lg-4">
+	                        			<label for="Title">Title</label>: <?php echo $menu_data[0]->title;?>
+	                        		</div>
+	                        		<div class="col-lg-4">
+	                        			<label for="Status">Status</label>: <?php echo ucfirst($menu_data[0]->status);?>
+	                        		</div>
+	                        		<div class="col-lg-4">
+	                        			<label for="Add By">Add By</label>: <?php echo $menu_data[0]->add_by;?>
+	                        		</div>
+	                        	</div>
+	                        </div>
+	                    </div>
 
-								
-							</tbody>
-						</table>
-						</div><!-- /.table-responsive -->
+	                    <div class="row">
+	                        <div class="col-lg-12">
+	                        	<div class="row">
+	                        		<div class="col-lg-4">
+	                        			<label for="Added Date">Added Date</label>: <?php echo date("M, d, Y @ g:i:s a", strtotime($menu_data[0]->date_added));?>
+	                        		</div>
+	                        	</div>
+	                        </div>
+	                    </div>
+
+	                    <div class="row">
+	                        <div class="col-lg-12">
+	                        	<div class="row">
+	                        		<div class="col-lg-4">
+	                        			<button class="btn btn-info btn-perspective" onclick="window.location.href='../menu.all';">Back To Menu List</button>
+	                        		</div>
+	                        	</div>
+	                        </div>
+	                    </div>
 					</div><!-- /.the-box .default -->
 					<!-- END DATA TABLE -->
 				
@@ -756,7 +751,7 @@
 				
 				<!-- BEGIN FOOTER -->
 				<footer>
-					&copy; <?php echo date('Y');?> <a href="<?php echo base_url();?>">Directory Managment</a><br />
+					&copy; <?php echo date('Y');?> <a href="#fakelink">Directory Managment</a><br />
 					Design by <a href="mailto:usman.haisum@gmail.com" target="_blank">Haisum</a>.
 				</footer>
 				<!-- END FOOTER -->
