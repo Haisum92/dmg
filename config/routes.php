@@ -49,15 +49,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+
 /*
 * Owner routes
 */
+
 $route['owner']                  = "SuperAdmin/index";
 $route['owner/dashboard']        = "SuperAdmin/index";
 $route['owner/home']             = "SuperAdmin/index";
-$route['owner/register.user']    = "SuperAdmin/add_user";
-$route['owner/users.all']        = "SuperAdmin/user_list";
-$route['owner/user.view/(:any)'] = "SuperAdmin/single_user/$1";
+
+	// USERS ROUTES
+	$route['owner/register.user']    = "SuperAdmin/add_user";
+	$route['owner/users.all']        = "SuperAdmin/user_list";
+	$route['owner/user.view/(:any)'] = "SuperAdmin/single_user/$1";
+
+	// AREA ROUTES
+	$route['owner/register.area']    = "SuperAdmin/add_area";
+	$route['owner/area.all']         = "SuperAdmin/area_list";
+	$route['owner/area.view/(:any)'] = "SuperAdmin/single_area/$1";
+
+	// Branch ROUTES
+	$route['owner/register.branch']    = "SuperAdmin/add_branch";
+	$route['owner/branch.all']         = "SuperAdmin/branch_list";
+	$route['owner/branch.view/(:any)'] = "SuperAdmin/single_branch/$1";
+
+	// Menu ROUTES
+	$route['owner/register.menu']    = "SuperAdmin/add_menu";
+	$route['owner/menu.all']         = "SuperAdmin/menu_list";
+	$route['owner/menu.view/(:any)'] = "SuperAdmin/single_menu/$1";
 
 // Routes For Login
 $route['authenticate.me'] = "Login/authenticate";

@@ -25,11 +25,14 @@ class SuperAdmin extends MY_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('Owner/index');
+		$data['active_nav'] = "dashboard";
+		$this->load->view('Owner/index',$data);
 	}
 
 	public function add_user()
 	{
+		$data['active_nav'] = "add_user";
+
 		if($this->__preCheckAuthenticateUser())
 		{
 			$this->load->model('User/UserModel');
@@ -37,7 +40,7 @@ class SuperAdmin extends MY_Controller {
 			if ( ($this->UserModel->add_user()) !=  NULL) 
 			{
 				$this->session->set_flashdata('success', 'User added successfully');
-				$this->load->view('Owner/Users/add-user');
+				$this->load->view('Owner/Users/add-user',$data);
 
 			}else{
 				// $this->session->set_flashdata('failure', 'Invalid email or Password.');
@@ -46,13 +49,14 @@ class SuperAdmin extends MY_Controller {
 			}
 			
 		}else{
-			$this->load->view('Owner/Users/add-user');	
+			$this->load->view('Owner/Users/add-user',$data);	
 		}
 
 	}
 
 	private function __preCheckAuthenticateUser()
 	{
+		$this->form_validation->set_rules('full_name','Name','required|alpha|xss_clean|trim');
 		$this->form_validation->set_rules('email','Email','required|valid_email|xss_clean|trim|is_unique[portal_users.email]');
 		$this->form_validation->set_rules('password','Password','required|xss_clean|trim|min_length[5]|max_length[12]|matches[confirmPassword]');
 		$this->form_validation->set_rules('confirmPassword','Confirm Password','required|xss_clean|trim|matches[password]');
@@ -73,7 +77,7 @@ class SuperAdmin extends MY_Controller {
 	public function user_list()
 	{
 		$this->load->model('UserLibrary');
-
+		$data['active_nav'] = "user_list";
 		$u_obj             = new STDClass;
 		$u_obj->start      = 0;
 		$u_obj->end        = 1000; 
@@ -92,11 +96,13 @@ class SuperAdmin extends MY_Controller {
 		}
 		$this->load->model('UserLibrary');
 
-		$u_obj          = new STDClass;
-		$u_obj->start   = 0;
-		$u_obj->end     = 1000; 
-		$u_obj->user_id = $user_id;
-		$u_obj->load    = array('added_by');
+		$data['active_nav'] = "single_user";
+
+		$u_obj              = new STDClass;
+		$u_obj->start       = 0;
+		$u_obj->end         = 1000; 
+		$u_obj->user_id     = $user_id;
+		$u_obj->load        = array('added_by');
 
 		$data['user_data'] = $this->UserLibrary->get_all($u_obj);
 		// echo '<pre>';print_r($data['user_data']);echo '</pre>';
@@ -104,9 +110,260 @@ class SuperAdmin extends MY_Controller {
 
 	}
 
+	public function add_area()
+	{
+		$data['active_nav'] = "add_area";
+
+		if($this->__preCheckAuthenticateArea())
+		{
+			$this->load->model('Area/AreaModel');
+			
+			if ( ($this->AreaModel->add_area()) !=  NULL) 
+			{
+				$this->session->set_flashdata('success', 'Area added successfully');
+				redirect('owner/area.all',$data);
+
+			}else{
+				// $this->session->set_flashdata('failure', 'Invalid email or Password.');
+				$this->session->set_flashdata('failure', 'There is problem while adding area');
+				$this->load->view('Owner/Areas/add-area', $data);
+			}
+			
+		}else{
+			$this->load->view('Owner/Areas/add-area',$data);	
+		}
+
+	}
+
+	private function __preCheckAuthenticateArea()
+	{
+		$this->form_validation->set_rules('title','Title','required|xss_clean|trim|alpha|is_unique[portal_areas.title]|min_length[3]|max_length[12]');
+		$this->form_validation->set_rules('status','Status','required|xss_clean|trim');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+
+		if( $this->form_validation->run() === FALSE ){
+			return false;
+		}else{
+			return true;
+		}
+	
+	}
+
+	public function area_list()
+	{
+		$this->load->model('Area/AreaLibrary');
+
+		$data['active_nav'] = "area_list";
+		$u_obj              = new STDClass;
+		$u_obj->start       = 0;
+		$u_obj->end         = 1000;
+		$u_obj->load        = array('added_by'); 
+		$u_obj->order_by    = "a.a_id DESC";
+		$data['area_list']  = $this->AreaLibrary->get_all($u_obj);
+
+		// echo '<pre>';print_r($data['area_list']);echo '</pre>';	
+		$this->load->view('Owner/Areas/area-list',$data);
+	
+	}
+
+	public function single_area($area_id = '')
+	{
+		if (empty($area_id) or !is_numeric($area_id)) {
+			$this->session->set_flashdata('failure', 'Please select area first');
+			redirect('owner/area.all');
+		}
+		$this->load->model('Area/AreaLibrary');
+
+		$data['active_nav'] = "single_area";
+		$a_obj              = new STDClass;
+		$a_obj->start       = 0;
+		$a_obj->end         = 1000; 
+		$a_obj->area_id     = $area_id;
+		$a_obj->load        = array('added_by');
+
+		$data['area_data'] = $this->AreaLibrary->get_all($a_obj);
+		// echo '<pre>';print_r($data['user_data']);echo '</pre>';
+		$this->load->view('Owner/Areas/area-single',$data);
+
+	}
+
+	public function add_branch()
+	{
+		$data['active_nav'] = "add_branch";
+		
+		$this->load->model('Area/AreaLibrary');
+
+		$a_obj        = new STDClass;
+		$a_obj->start = 0;
+		$a_obj->end   = 1000;
+
+		$data['area_list'] = $this->AreaLibrary->get_all($a_obj);
+
+		if($this->__preCheckAuthenticateBranch())
+		{
+			$this->load->model('Branch/BranchModel');
+
+			if ( ($this->BranchModel->add_branch()) !=  NULL) 
+			{
+				$this->session->set_flashdata('success', 'Branch added successfully');
+				redirect('owner/branch.all',$data);
+
+			}else{
+				// $this->session->set_flashdata('failure', 'Invalid email or Password.');
+				$this->session->set_flashdata('failure', 'There is problem while adding branch');
+				$this->load->view('Owner/Branches/add-branch', $data);
+			}
+			
+		}else{
+			$this->load->view('Owner/Branches/add-branch',$data);	
+		}
+
+	}
+
+	private function __preCheckAuthenticateBranch()
+	{
+		$this->form_validation->set_rules('title','Title','required|xss_clean|trim|alpha|is_unique[portal_branches.title]|min_length[3]|max_length[12]');
+		$this->form_validation->set_rules('manager','Manager','required|xss_clean|trim|alpha|min_length[3]|max_length[12]');
+		$this->form_validation->set_rules('a_id','Area','required|xss_clean|trim');
+		$this->form_validation->set_rules('status','Status','required|xss_clean|trim');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+
+		if( $this->form_validation->run() === FALSE ){
+			return false;
+		}else{
+			return true;
+		}
+	
+	}
+
+	public function branch_list()
+	{
+		$this->load->model('Branch/BranchLibrary');
+
+		$data['active_nav'] = "branch_list";
+		$u_obj              = new STDClass;
+		$u_obj->start       = 0;
+		$u_obj->end         = 1000;
+		$u_obj->load        = array('added_by','area'); 
+		$u_obj->order_by    = "b.b_id DESC";
+		$data['branch_list']  = $this->BranchLibrary->get_all($u_obj);
+
+		// echo '<pre>';print_r($data['branch_list']);echo '</pre>';	
+		$this->load->view('Owner/Branches/branch-list',$data);
+	
+	}
+
+	public function single_branch($branch_id = '')
+	{
+		if (empty($branch_id) or !is_numeric($branch_id)) {
+			$this->session->set_flashdata('failure', 'Please select branch first');
+			redirect('owner/branch.all');
+		}
+		$this->load->model('Branch/BranchLibrary');
+
+		$data['active_nav'] = "single_branch";
+		$a_obj              = new STDClass;
+		$a_obj->start       = 0;
+		$a_obj->end         = 1000; 
+		$a_obj->branch_id   = $branch_id;
+		$a_obj->load        = array('added_by','area');
+
+		$data['branch_data'] = $this->BranchLibrary->get_all($a_obj);
+		// echo '<pre>';print_r($data['user_data']);echo '</pre>';
+		$this->load->view('Owner/Branches/branch-single',$data);
+
+	}
+
+	public function add_menu()
+	{
+		$data['active_nav'] = "add_menu";
+		
+		$this->load->model('Menu/MenuLibrary');
+
+		$a_obj        = new STDClass;
+		$a_obj->start = 0;
+		$a_obj->end   = 1000;
+
+		// $data['area_list'] = $this->MenuLibrary->get_all($a_obj);
+
+		if($this->__preCheckAuthenticateMenu())
+		{
+			$this->load->model('Menu/MenuModel');
+
+			if ( ($this->MenuModel->add_menu()) !=  NULL) 
+			{
+				$this->session->set_flashdata('success', 'Menu added successfully');
+				redirect('owner/menu.all',$data);
+
+			}else{
+				// $this->session->set_flashdata('failure', 'Invalid email or Password.');
+				$this->session->set_flashdata('failure', 'There is problem while adding menu');
+				$this->load->view('Owner/Menus/add-menu', $data);
+			}
+			
+		}else{
+			$this->load->view('Owner/Menus/add-menu',$data);	
+		}
+
+	}
+
+	private function __preCheckAuthenticateMenu()
+	{
+		$this->form_validation->set_rules('title','Title','required|xss_clean|trim|is_unique[portal_branches.title]|min_length[3]|max_length[12]');
+		$this->form_validation->set_rules('status','Status','required|xss_clean|trim');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+
+		if( $this->form_validation->run() === FALSE ){
+			return false;
+		}else{
+			return true;
+		}
+	
+	}
+
+	public function menu_list()
+	{
+		$this->load->model('Menu/MenuLibrary');
+
+		$data['active_nav'] = "menu_list";
+		$u_obj              = new STDClass;
+		$u_obj->start       = 0;
+		$u_obj->end         = 1000;
+		$u_obj->load        = array('added_by','area'); 
+		$u_obj->order_by    = "m.m_id DESC";
+		$data['menu_list']  = $this->MenuLibrary->get_all($u_obj);
+
+		// echo '<pre>';print_r($data['menu_list']);echo '</pre>';	
+		$this->load->view('Owner/Menus/menu-list',$data);
+	
+	}
+
+	public function single_menu($menu_id = '')
+	{
+		if (empty($menu_id) or !is_numeric($menu_id)) {
+			$this->session->set_flashdata('failure', 'Please select menu first');
+			redirect('owner/menu.all');
+		}
+		$this->load->model('Menu/MenuLibrary');
+
+		$data['active_nav'] = "single_menu";
+		$a_obj              = new STDClass;
+		$a_obj->start       = 0;
+		$a_obj->end         = 1000; 
+		$a_obj->branch_id   = $menu_id;
+		$a_obj->load        = array('added_by');
+
+		$data['menu_data'] = $this->MenuLibrary->get_all($a_obj);
+		// echo '<pre>';print_r($data['user_data']);echo '</pre>';
+		$this->load->view('Owner/Menus/menu-single',$data);
+
+	}
+
 	public function login_check()
 	{
 		echo '<pre>';print_r("I am login check");echo '</pre>';
 		die('yoho!');
+	
 	}
+
 }
