@@ -71,10 +71,14 @@ $route['owner/home']             = "SuperAdmin/index";
 	$route['owner/area.edit/(:any)'] = "SuperAdmin/single_edit_area/$1";
 
 	// Branch ROUTES
-	$route['owner/register.branch']    = "SuperAdmin/add_branch";
-	$route['owner/branch.all']         = "SuperAdmin/branch_list";
-	$route['owner/branch.view/(:any)'] = "SuperAdmin/single_branch/$1";
-	$route['owner/branch.edit/(:any)'] = "SuperAdmin/single_edit_branch/$1";
+	$route['owner/register.branch']             = "SuperAdmin/add_branch";
+	$route['owner/branch.all']                  = "SuperAdmin/branch_list";
+	$route['owner/branch.view/(:any)']          = "SuperAdmin/single_branch/$1";
+	$route['owner/branch.edit/(:any)']          = "SuperAdmin/single_edit_branch/$1";
+	$route['owner/register.branch.menu']        = "SuperAdmin/add_branch_menu";
+	$route['owner/register.branch.menu/(:num)'] = "SuperAdmin/add_branch_menu/$1";
+	$route['owner/revise.branch.menu']          = "SuperAdmin/edit_branch_menu";
+	$route['owner/revise.branch.menu/(:num)']   = "SuperAdmin/edit_branch_menu/$1";
 
 	// Menu ROUTES
 	$route['owner/register.menu']    = "SuperAdmin/add_menu";
@@ -82,11 +86,21 @@ $route['owner/home']             = "SuperAdmin/index";
 	$route['owner/menu.view/(:any)'] = "SuperAdmin/single_menu/$1";
 	$route['owner/menu.edit/(:any)'] = "SuperAdmin/single_edit_menu/$1";
 
+		// Menu SECTION ROUTES
+		$route['owner/register.section']             = "SuperAdmin/add_section";
+		$route['owner/register.menu.section/(:any)'] = "SuperAdmin/add_menu_section/$1";
+		$route['owner/revise.menu.section']          = "SuperAdmin/edit_menu_section";
+		$route['owner/revise.menu.section/(:num)']   = "SuperAdmin/edit_menu_section/$1";
+
+	// SECTIONS ROUTES 
+	$route['owner/section.all']           = "SuperAdmin/section_list";
+	$route['owner/section.view/(:any)']   = "SuperAdmin/single_section/$1";
+
 // Routes For Login
 $route['authenticate.me'] = "Login/authenticate";
-$route['destroy.me'] = "Login/destroy_session";
+$route['destroy.me']      = "Login/destroy_session";
 
 // Default Routes
-$route['default_controller'] = 'SuperAdmin';
-$route['404_override'] = '';
+$route['default_controller']   = 'SuperAdmin';
+$route['404_override']         = '';
 $route['translate_uri_dashes'] = FALSE;

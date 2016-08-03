@@ -726,6 +726,11 @@
 												<td><?php echo $menu->date_added;?></td>
 												<td>
 													<button class="btn btn-info btn-perspective" onclick="window.location.href='menu.view/<?php echo $menu->m_id;?>';">View</button>
+													<?php if ($menu->section_exists == 'yes') { ?>
+														<button class="btn btn-warning btn-perspective" onclick="window.location.href='revise.menu.section/<?php echo $menu->m_id;?>';">Edit Section</button>
+													<?php }else{?>
+													<button class="btn btn-info btn-perspective" onclick="window.location.href='register.menu.section/<?php echo $menu->m_id;?>';">Assign Menu</button>
+													<?php }?>
 													<button class="btn btn-warning btn-perspective">Edit</button>
 													<button class="btn btn-danger btn-perspective">Delete</button>
 												</td>

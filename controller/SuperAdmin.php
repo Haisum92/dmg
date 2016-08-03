@@ -56,7 +56,7 @@ class SuperAdmin extends MY_Controller {
 
 	private function __preCheckAuthenticateUser()
 	{
-		$this->form_validation->set_rules('full_name','Name','required|alpha|xss_clean|trim');
+		$this->form_validation->set_rules('full_name','Name','required|alpha|xss_clean|trim|callback_alphaspace_check');
 		$this->form_validation->set_rules('email','Email','required|valid_email|xss_clean|trim|is_unique[portal_users.email]');
 		$this->form_validation->set_rules('password','Password','required|xss_clean|trim|min_length[5]|max_length[12]|matches[confirmPassword]');
 		$this->form_validation->set_rules('confirmPassword','Confirm Password','required|xss_clean|trim|matches[password]');
@@ -148,7 +148,7 @@ class SuperAdmin extends MY_Controller {
 
 	private function __preCheckAuthenticateEditUser()
 	{
-		$this->form_validation->set_rules('full_name','Name','required|alpha|xss_clean|trim');
+		$this->form_validation->set_rules('full_name','Name','required|xss_clean|trim|callback_alphaspace_check');
 		if (!empty($this->input->post('password'))) {
 			$this->form_validation->set_rules('password','Password','required|xss_clean|trim|min_length[5]|max_length[12]|matches[confirmPassword]');
 			$this->form_validation->set_rules('confirmPassword','Confirm Password','required|xss_clean|trim|matches[password]');
@@ -198,7 +198,7 @@ class SuperAdmin extends MY_Controller {
 
 	private function __preCheckAuthenticateArea()
 	{
-		$this->form_validation->set_rules('title','Title','required|xss_clean|trim|alpha|is_unique[portal_areas.title]|min_length[3]|max_length[12]');
+		$this->form_validation->set_rules('title','Title','required|xss_clean|trim|callback_alphaspace_check|is_unique[portal_areas.title]|min_length[3]|max_length[12]');
 		$this->form_validation->set_rules('status','Status','required|xss_clean|trim');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
 
@@ -261,9 +261,9 @@ class SuperAdmin extends MY_Controller {
 		$data['active_nav'] = "single_area";
 		$a_obj              = new STDClass;
 		$a_obj->start       = 0;
-		$a_obj->end         = 1000; 
+		$a_obj->end         = 1; 
 		$a_obj->area_id     = $area_id;
-		$a_obj->load        = array('added_by');
+		// $a_obj->load        = array('added_by');
 
 		$data['area_data'] = $this->AreaLibrary->get_all($a_obj);
 		$db_title = $data['area_data'][0]->title;
@@ -342,8 +342,8 @@ class SuperAdmin extends MY_Controller {
 
 	private function __preCheckAuthenticateBranch()
 	{
-		$this->form_validation->set_rules('title','Title','required|xss_clean|trim|alpha|is_unique[portal_branches.title]|min_length[3]|max_length[12]');
-		$this->form_validation->set_rules('manager','Manager','required|xss_clean|trim|alpha|min_length[3]|max_length[12]');
+		$this->form_validation->set_rules('title','Title','required|xss_clean|trim|is_unique[portal_branches.title]|min_length[3]|max_length[20]|callback_alphaspace_check');
+		$this->form_validation->set_rules('manager','Manager','required|xss_clean|trim|min_length[3]|max_length[20]|callback_alphaspace_check');
 		$this->form_validation->set_rules('a_id','Area','required|xss_clean|trim');
 		$this->form_validation->set_rules('status','Status','required|xss_clean|trim');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
@@ -364,7 +364,7 @@ class SuperAdmin extends MY_Controller {
 		$u_obj              = new STDClass;
 		$u_obj->start       = 0;
 		$u_obj->end         = 1000;
-		$u_obj->load        = array('added_by','area'); 
+		$u_obj->load        = array('added_by','area','has_branch'); 
 		$u_obj->order_by    = "b.b_id DESC";
 		$data['branch_list']  = $this->BranchLibrary->get_all($u_obj);
 
@@ -496,7 +496,7 @@ class SuperAdmin extends MY_Controller {
 
 	private function __preCheckAuthenticateMenu()
 	{
-		$this->form_validation->set_rules('title','Title','required|xss_clean|trim|is_unique[portal_branches.title]|min_length[3]|max_length[12]');
+		$this->form_validation->set_rules('title','Title','required|xss_clean|trim|is_unique[portal_branches.title]|min_length[3]|max_length[12]|callback_alphaspace_check');
 		$this->form_validation->set_rules('status','Status','required|xss_clean|trim');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
 
@@ -516,7 +516,7 @@ class SuperAdmin extends MY_Controller {
 		$u_obj              = new STDClass;
 		$u_obj->start       = 0;
 		$u_obj->end         = 1000;
-		$u_obj->load        = array('added_by','area'); 
+		$u_obj->load        = array('added_by','has_section'); 
 		$u_obj->order_by    = "m.m_id DESC";
 		$data['menu_list']  = $this->MenuLibrary->get_all($u_obj);
 
@@ -536,7 +536,7 @@ class SuperAdmin extends MY_Controller {
 		$data['active_nav'] = "single_menu";
 		$a_obj              = new STDClass;
 		$a_obj->start       = 0;
-		$a_obj->end         = 1000; 
+		$a_obj->end         = 1; 
 		$a_obj->branch_id   = $menu_id;
 		$a_obj->load        = array('added_by');
 
@@ -556,7 +556,7 @@ class SuperAdmin extends MY_Controller {
 
 		$a_obj              = new STDClass;
 		$a_obj->start       = 0;
-		$a_obj->end         = 1000; 
+		$a_obj->end         = 1; 
 		$a_obj->branch_id   = $menu_id;
 		$a_obj->load        = array('added_by');
 
@@ -564,13 +564,6 @@ class SuperAdmin extends MY_Controller {
 
 		$data['active_nav'] = "edit_menu";
 		
-		$this->load->model('Menu/MenuLibrary');
-
-		$a_obj        = new STDClass;
-		$a_obj->start = 0;
-		$a_obj->end   = 1000;
-
-		// $data['area_list'] = $this->MenuLibrary->get_all($a_obj);
 		$db_title = $data['menu_data'][0]->title;
 
 		if($this->__preCheckAuthenticateEditMenu($db_title))
@@ -610,6 +603,326 @@ class SuperAdmin extends MY_Controller {
 			return false;
 		}else{
 			return true;
+		}
+	
+	}
+
+	public function add_branch_menu($branch_id = '')
+	{
+		if (empty($branch_id) OR !is_numeric($branch_id)){
+			$this->session->set_flashdata('failure', 'Please select branch first');
+			redirect('owner/branch.all');
+		}
+		$data['active_nav'] = "add_branch_menu";
+		
+		$this->load->model('Branch/BranchModel');
+		$this->load->model('Menu/MenuLibrary');
+
+		$this->BranchModel->branch_id = $branch_id;
+		$data['branch_data'] = $this->BranchModel->get_by_id();
+
+		$s_obj                = new STDClass;
+		$s_obj->status        = "active";
+		$s_obj->order_by      = "m.title ASC";
+		$data['menu_list'] = $this->MenuLibrary->get_all($s_obj);
+
+		if($this->__preCheckAuthenticateBranchMenu())
+		{
+			if ( ($this->BranchModel->add_branch_menu()) !=  NULL) 
+			{
+				$this->session->set_flashdata('success', 'Branch menus added successfully');
+				redirect('owner/branch.all',$data);
+
+			}else{
+				// $this->session->set_flashdata('failure', 'Invalid email or Password.');
+				$this->session->set_flashdata('failure', 'There is problem while adding branch menu');
+				$this->load->view('Owner/Branches/add-menu', $data);
+			}
+			
+		}else{
+			$this->load->view('Owner/Branches/add-branch-menu',$data);	
+		}
+
+	}
+
+	private function __preCheckAuthenticateBranchMenu()
+	{
+		/*	*/
+		$this->form_validation->set_rules('menu[]','Menu','required|xss_clean|trim|min_length[1]');
+		$this->form_validation->set_rules('status','Status','required|xss_clean|trim');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+
+		if( $this->form_validation->run() === FALSE ){
+			return false;
+		}else{
+			return true;
+		}
+	
+	}
+
+	public function edit_branch_menu($branch_id = '')
+	{
+		if (empty($branch_id) OR !is_numeric($branch_id)){
+			$this->session->set_flashdata('failure', 'Please select branch first');
+			redirect('owner/branch.all');
+		}
+
+		$data['active_nav'] = "branch_list"; #"edit_branch_menu";
+		
+		$this->load->model('Branch/BranchModel');
+		$this->load->model('Menu/MenuLibrary');
+
+		$this->BranchModel->branch_id  = $branch_id;
+		$data['branch_data']           = $this->BranchModel->get_by_id();
+		$this->BranchModel->load_param = array('menu'); 
+		$data['branch_menu']           = $this->BranchModel->get_menus_id();
+
+		$data['branch_menu']           =  array_map( function($args){ return $args->menu_id;},$data['branch_menu']);
+		
+		$m_obj             = new STDClass;
+		$m_obj->status     = "active";
+		$m_obj->order_by   = "m.title ASC";
+		$data['menu_list'] = $this->MenuLibrary->get_all($m_obj);
+
+		if($this->__preCheckAuthenticateReviseBranchMenu())
+		{
+			if ($this->BranchModel->update_branch_menu()) 
+			{
+				$this->session->set_flashdata('success', 'Branch menus updated successfully');
+				redirect('owner/branch.all',$data);
+
+			}else{
+				
+				$this->session->set_flashdata('failure', 'There is problem while updating branch menu');
+				$this->load->view('Owner/Branches/edit-branch-menu', $data);
+			}
+			
+		}else{
+			$this->load->view('Owner/Branches/edit-branch-menu',$data);	
+		}
+
+	}
+
+	private function __preCheckAuthenticateReviseBranchMenu()
+	{
+		$this->form_validation->set_rules('menu[]','Menu','required|xss_clean|trim|min_length[1]');
+		$this->form_validation->set_rules('status','Status','required|xss_clean|trim');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+
+		if( $this->form_validation->run() === FALSE ){
+			return false;
+		}else{
+			return true;
+		}
+	
+	}
+
+	public function add_section()
+	{
+		$data['active_nav'] = "add_section";
+		
+		$this->load->model('Section/SectionLibrary');
+
+		$a_obj        = new STDClass;
+		$a_obj->start = 0;
+		$a_obj->end   = 1000;
+
+		// $data['area_list'] = $this->MenuLibrary->get_all($a_obj);
+
+		if($this->__preCheckAuthenticateSection())
+		{
+			$this->load->model('Section/SectionModel');
+
+			if ( ($this->SectionModel->add_section()) !=  NULL) 
+			{
+				$this->session->set_flashdata('success', 'Section added successfully');
+				redirect('owner/section.all',$data);
+
+			}else{
+				// $this->session->set_flashdata('failure', 'Invalid email or Password.');
+				$this->session->set_flashdata('failure', 'There is problem while adding section');
+				$this->load->view('Owner/Sections/add-section', $data);
+			}
+			
+		}else{
+			$this->load->view('Owner/Sections/add-section',$data);	
+		}
+
+	}
+
+	private function __preCheckAuthenticateSection()
+	{
+		$this->form_validation->set_rules('title','Title','required|xss_clean|trim|is_unique[portal_sections.title]|min_length[3]|max_length[32]|callback_alphaspace_check');
+		$this->form_validation->set_rules('status','Status','required|xss_clean|trim');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+
+		if( $this->form_validation->run() === FALSE ){
+			return false;
+		}else{
+			return true;
+		}
+	
+	}
+
+	public function section_list()
+	{
+		$this->load->model('Section/SectionLibrary');
+
+		$data['active_nav'] = "section_list";
+		$s_obj              = new STDClass;
+		$s_obj->start       = 0;
+		$s_obj->end         = 1000;
+		$s_obj->load        = array('added_by'); 
+		$s_obj->order_by    = "s.s_id DESC";
+		$data['section_list']  = $this->SectionLibrary->get_all($s_obj);
+
+		// echo '<pre>';print_r($data['menu_list']);echo '</pre>';	
+		$this->load->view('Owner/Sections/section-list',$data);
+	
+	}
+
+	public function single_section($section_id = '')
+	{
+		if (empty($section_id) or !is_numeric($section_id)) {
+			$this->session->set_flashdata('failure', 'Please select section first');
+			redirect('owner/section.all');
+		}
+		$this->load->model('Section/SectionLibrary');
+
+		$data['active_nav'] = "single_section";
+		$s_obj              = new STDClass;
+		$s_obj->start       = 0;
+		$s_obj->end         = 1000; 
+		$s_obj->section_id  = $section_id;
+		$s_obj->load        = array('added_by');
+
+		$data['section_data'] = $this->SectionLibrary->get_all($s_obj);
+		// echo '<pre>';print_r($data['user_data']);echo '</pre>';
+		$this->load->view('Owner/Sections/section-single',$data);
+
+	}
+
+	public function add_menu_section($menu_id = '')
+	{
+		if (empty($menu_id) or !is_numeric($menu_id)) {
+			$this->session->set_flashdata('failure', 'Please select menu first');
+			redirect('owner/menu.all');
+		}
+		$data['active_nav'] = "add_menu_section";
+		
+		$this->load->model('Menu/MenuModel');
+		$this->load->model('Section/SectionLibrary');
+
+		$this->MenuModel->m_id = $menu_id;
+		$data['menu_data']     =  $this->MenuModel->get_by_id();
+
+		$s_obj                = new STDClass;
+		$s_obj->status        = "active";
+		$s_obj->order_by      = "s.title ASC";
+		$data['section_list'] = $this->SectionLibrary->get_all($s_obj);
+
+		if($this->__preCheckAuthenticateMenuSection())
+		{ 
+			if ( ($this->MenuModel->add_menu_section()) !=  NULL) 
+			{
+				$this->session->set_flashdata('success', 'Sections assigned to the menu successfully');
+				redirect('owner/menu.all',$data);
+
+			}else{
+				// $this->session->set_flashdata('failure', 'Invalid email or Password.');
+				$this->session->set_flashdata('failure', 'There is problem assigning sections to menu');
+				$this->load->view('Owner/Menus/add-menu-section', $data);
+			}
+			
+		}else{
+			$this->load->view('Owner/Menus/add-menu-section',$data);	
+		}
+
+	}
+
+	private function __preCheckAuthenticateMenuSection()
+	{
+		/*	*/
+		$this->form_validation->set_rules('section[]','Section','required|xss_clean|trim|min_length[1]');
+		$this->form_validation->set_rules('status','Status','required|xss_clean|trim');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+
+		if( $this->form_validation->run() === FALSE ){
+			return false;
+		}else{
+			return true;
+		}
+	
+	}
+
+	public function edit_menu_section($menu_id = '')
+	{
+		if (empty($menu_id) OR !is_numeric($menu_id)){
+			$this->session->set_flashdata('failure', 'Please select menu first');
+			redirect('owner/menu.all');
+		}
+
+		$data['active_nav'] = "menu_list"; #"edit_branch_menu";
+		
+		$this->load->model('Menu/MenuModel');
+		$this->load->model('Section/SectionLibrary');
+
+		$this->MenuModel->menu_id    = $menu_id;
+		$data['menu_data']           = $this->MenuModel->get_by_id();
+
+		$this->MenuModel->load_param = array('section'); 
+		$data['menu_section']        = $this->MenuModel->get_sections_id();
+		$data['menu_section']        =  array_map( function($args){ return $args->section_id;},$data['menu_section']);
+
+		$s_obj             = new STDClass;
+		$s_obj->status     = "active";
+		$s_obj->order_by   = "s.title ASC";
+		$data['section_list'] = $this->SectionLibrary->get_all($s_obj);
+		// echo '<pre>';print_r($data['section_list']);echo '</pre>';
+		// die('yoho!');
+		if($this->__preCheckAuthenticateReviseMenuSection())
+		{
+			if ($this->MenuModel->update_menu_section()) 
+			{
+				$this->session->set_flashdata('success', 'Menu sections updated successfully');
+				redirect('owner/menu.all',$data);
+
+			}else{
+				
+				$this->session->set_flashdata('failure', 'There is problem while updating menu sections');
+				$this->load->view('Owner/Menus/edit-menu-section', $data);
+			}
+			
+		}else{
+			$this->load->view('Owner/Menus/edit-menu-section',$data);	
+		}
+
+	}
+
+	private function __preCheckAuthenticateReviseMenuSection()
+	{
+		$this->form_validation->set_rules('section[]','Menu','required|xss_clean|trim|min_length[1]');
+		$this->form_validation->set_rules('status','Status','required|xss_clean|trim');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+
+		if( $this->form_validation->run() === FALSE ){
+			return false;
+		}else{
+			return true;
+		}
+	
+	}
+
+	public function alphaspace_check($str)
+	{
+		if (! preg_match("/^([-a-zA-Z ])+$/i", $str)) 
+		{	
+			$this->form_validation->set_message('alphaspace_check', 'The {field} field can only contains alphabets with spaces');
+			return FALSE;
+		
+		}else{
+		
+			return TRUE;
 		}
 	
 	}

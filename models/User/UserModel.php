@@ -49,6 +49,7 @@ class UserModel extends CI_Model{
 		$insert_id = $this->db->insert_id();
 
 		return $insert_id;
+	
 	}
 
 	public function edit_user($user_id)
@@ -84,6 +85,7 @@ class UserModel extends CI_Model{
 		$edit_query .= " WHERE u_id = '". $user_id ."'" . ";";
 		$update_rows  = $this->db->query($edit_query);
 		return $update_rows;
+	
 	}
 
 }
