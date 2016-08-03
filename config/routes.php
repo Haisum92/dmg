@@ -68,16 +68,19 @@ $route['owner/home']             = "SuperAdmin/index";
 	$route['owner/register.area']    = "SuperAdmin/add_area";
 	$route['owner/area.all']         = "SuperAdmin/area_list";
 	$route['owner/area.view/(:any)'] = "SuperAdmin/single_area/$1";
+	$route['owner/area.edit/(:any)'] = "SuperAdmin/single_edit_area/$1";
 
 	// Branch ROUTES
 	$route['owner/register.branch']    = "SuperAdmin/add_branch";
 	$route['owner/branch.all']         = "SuperAdmin/branch_list";
 	$route['owner/branch.view/(:any)'] = "SuperAdmin/single_branch/$1";
+	$route['owner/branch.edit/(:any)'] = "SuperAdmin/single_edit_branch/$1";
 
 	// Menu ROUTES
 	$route['owner/register.menu']    = "SuperAdmin/add_menu";
 	$route['owner/menu.all']         = "SuperAdmin/menu_list";
 	$route['owner/menu.view/(:any)'] = "SuperAdmin/single_menu/$1";
+	$route['owner/menu.edit/(:any)'] = "SuperAdmin/single_edit_menu/$1";
 
 // Routes For Login
 $route['authenticate.me'] = "Login/authenticate";

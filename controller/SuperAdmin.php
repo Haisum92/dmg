@@ -126,7 +126,8 @@ class SuperAdmin extends MY_Controller {
 		$u_obj->load    = array('added_by');
 
 		$data['user_data'] = $this->UserLibrary->get_all($u_obj);
-		if($this->__preCheckAuthenticateUserEdit())
+		
+		if($this->__preCheckAuthenticateEditUser())
 		{
 			$this->load->model('User/UserModel');
 			if ( ($this->UserModel->edit_user($user_id)) !=  NULL) 
@@ -145,8 +146,9 @@ class SuperAdmin extends MY_Controller {
 
 	}
 
-	private function __preCheckAuthenticateUserEdit()
+	private function __preCheckAuthenticateEditUser()
 	{
+		$this->form_validation->set_rules('full_name','Name','required|alpha|xss_clean|trim');
 		if (!empty($this->input->post('password'))) {
 			$this->form_validation->set_rules('password','Password','required|xss_clean|trim|min_length[5]|max_length[12]|matches[confirmPassword]');
 			$this->form_validation->set_rules('confirmPassword','Confirm Password','required|xss_clean|trim|matches[password]');
@@ -228,7 +230,7 @@ class SuperAdmin extends MY_Controller {
 	public function single_area($area_id = '')
 	{
 		if (empty($area_id) or !is_numeric($area_id)) {
-			$this->session->set_flashdata('failure', 'Please select area first');
+			$this->session->set_flashdata('failure', 'Please select an area first');
 			redirect('owner/area.all');
 		}
 		$this->load->model('Area/AreaLibrary');
@@ -244,6 +246,65 @@ class SuperAdmin extends MY_Controller {
 		// echo '<pre>';print_r($data['user_data']);echo '</pre>';
 		$this->load->view('Owner/Areas/area-single',$data);
 
+	}
+
+	public function single_edit_area($area_id)
+	{
+		if (empty($area_id) or !is_numeric($area_id)) {
+			$this->session->set_flashdata('failure', 'Please select an area first');
+			redirect('owner/area.all');
+		}
+		$data['active_nav'] = "edit_area";
+
+		$this->load->model('Area/AreaLibrary');
+
+		$data['active_nav'] = "single_area";
+		$a_obj              = new STDClass;
+		$a_obj->start       = 0;
+		$a_obj->end         = 1000; 
+		$a_obj->area_id     = $area_id;
+		$a_obj->load        = array('added_by');
+
+		$data['area_data'] = $this->AreaLibrary->get_all($a_obj);
+		$db_title = $data['area_data'][0]->title;
+		if($this->__preCheckAuthenticateEditArea($db_title))
+		{
+			$this->load->model('Area/AreaModel');
+			
+			if ( ($this->AreaModel->edit_area($area_id)) !=  NULL) 
+			{
+				$this->session->set_flashdata('success', 'Area edited successfully');
+				redirect('owner/area.all',$data);
+
+			}else{
+				$this->session->set_flashdata('failure', 'There is problem while adding area');
+				$this->load->view('Owner/Areas/area-edit-single', $data);
+			}
+			
+		}else{
+			$this->load->view('Owner/Areas/area-edit-single',$data);	
+		}
+
+	}
+
+	private function __preCheckAuthenticateEditArea($db_title)
+	{
+		$title = $this->input->post('title');
+		if ($title == $db_title) {
+            $this->form_validation->set_rules('title','Title','required|xss_clean|trim|alpha|min_length[3]|max_length[12]');
+        } else {
+            $this->form_validation->set_rules('title','Title','required|xss_clean|trim|alpha|is_unique[portal_areas.title]|min_length[3]|max_length[12]');
+        }
+
+		$this->form_validation->set_rules('status','Status','required|xss_clean|trim');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+
+		if( $this->form_validation->run() === FALSE ){
+			return false;
+		}else{
+			return true;
+		}
+	
 	}
 
 	public function add_branch()
@@ -333,6 +394,73 @@ class SuperAdmin extends MY_Controller {
 
 	}
 
+	public function single_edit_branch($branch_id)
+	{
+		if (empty($branch_id) or !is_numeric($branch_id)) {
+			$this->session->set_flashdata('failure', 'Please select branch first');
+			redirect('owner/branch.all');
+		}
+		$this->load->model('Branch/BranchLibrary');
+		$data['active_nav'] = "edit_branch";
+		
+		$this->load->model('Area/AreaLibrary');
+
+		$b_obj              = new STDClass;
+		$b_obj->start       = 0;
+		$b_obj->end         = 1000; 
+		$b_obj->branch_id   = $branch_id;
+		$b_obj->load        = array('added_by','area');
+
+		$data['branch_data'] = $this->BranchLibrary->get_all($b_obj);
+
+		$a_obj        = new STDClass;
+		$a_obj->start = 0;
+		$a_obj->end   = 1000;
+
+		$data['area_list'] = $this->AreaLibrary->get_all($a_obj);
+		$db_title = $data['branch_data'][0]->title;
+		if($this->__preCheckAuthenticateEditBranch($db_title))
+		{
+			$this->load->model('Branch/BranchModel');
+
+			if ( ($this->BranchModel->edit_branch($branch_id)) !=  NULL) 
+			{
+				$this->session->set_flashdata('success', 'Branch Edited successfully');
+				redirect('owner/branch.all',$data);
+
+			}else{
+				$this->session->set_flashdata('failure', 'There is problem while adding branch');
+				$this->load->view('Owner/Branches/branch-edit-single', $data);
+			}
+			
+		}else{
+			$this->load->view('Owner/Branches/branch-edit-single',$data);	
+		}
+
+	}
+
+	private function __preCheckAuthenticateEditBranch($db_title)
+	{
+		$title = $this->input->post('title');
+		if ($title == $db_title) {
+            $this->form_validation->set_rules('title','Title','required|xss_clean|trim|alpha|min_length[3]|max_length[12]');
+        } else {
+            $this->form_validation->set_rules('title','Title','required|xss_clean|trim|alpha|is_unique[portal_branches.title]|min_length[3]|max_length[12]');
+        }
+
+		//$this->form_validation->set_rules('manager','Manager','required|xss_clean|trim|alpha|min_length[3]|max_length[12]');
+		$this->form_validation->set_rules('a_id','Area','required|xss_clean|trim');
+		$this->form_validation->set_rules('status','Status','required|xss_clean|trim');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+
+		if( $this->form_validation->run() === FALSE ){
+			return false;
+		}else{
+			return true;
+		}
+	
+	}
+
 	public function add_menu()
 	{
 		$data['active_nav'] = "add_menu";
@@ -416,6 +544,74 @@ class SuperAdmin extends MY_Controller {
 		// echo '<pre>';print_r($data['user_data']);echo '</pre>';
 		$this->load->view('Owner/Menus/menu-single',$data);
 
+	}
+
+	public function single_edit_menu($menu_id)
+	{
+		if (empty($menu_id) or !is_numeric($menu_id)) {
+			$this->session->set_flashdata('failure', 'Please select menu first');
+			redirect('owner/menu.all');
+		}
+		$this->load->model('Menu/MenuLibrary');
+
+		$a_obj              = new STDClass;
+		$a_obj->start       = 0;
+		$a_obj->end         = 1000; 
+		$a_obj->branch_id   = $menu_id;
+		$a_obj->load        = array('added_by');
+
+		$data['menu_data'] = $this->MenuLibrary->get_all($a_obj);
+
+		$data['active_nav'] = "edit_menu";
+		
+		$this->load->model('Menu/MenuLibrary');
+
+		$a_obj        = new STDClass;
+		$a_obj->start = 0;
+		$a_obj->end   = 1000;
+
+		// $data['area_list'] = $this->MenuLibrary->get_all($a_obj);
+		$db_title = $data['menu_data'][0]->title;
+
+		if($this->__preCheckAuthenticateEditMenu($db_title))
+		{
+			$this->load->model('Menu/MenuModel');
+
+			if ( ($this->MenuModel->edit_menu($menu_id)) !=  NULL) 
+			{
+				$this->session->set_flashdata('success', 'Menu edited successfully');
+				redirect('owner/menu.all',$data);
+
+			}else{
+				// $this->session->set_flashdata('failure', 'Invalid email or Password.');
+				$this->session->set_flashdata('failure', 'There is problem while editing menu');
+				$this->load->view('Owner/Menus/menu-edit-single', $data);
+			}
+			
+		}else{
+			$this->load->view('Owner/Menus/menu-edit-single',$data);	
+		}
+
+	}
+
+	private function __preCheckAuthenticateEditMenu($db_title)
+	{
+		$title = $this->input->post('title');
+		if ($title == $db_title) {
+            $this->form_validation->set_rules('title','Title','required|xss_clean|trim|min_length[3]|max_length[12]');
+        } else {
+            $this->form_validation->set_rules('title','Title','required|xss_clean|trim|is_unique[portal_branches.title]|min_length[3]|max_length[12]');
+        }
+		
+		$this->form_validation->set_rules('status','Status','required|xss_clean|trim');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+
+		if( $this->form_validation->run() === FALSE ){
+			return false;
+		}else{
+			return true;
+		}
+	
 	}
 
 	public function login_check()
