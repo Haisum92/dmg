@@ -725,11 +725,11 @@
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Sections</label>
 										<div class="col-lg-5">
-											<select data-placeholder="Choose a Section..." class="form-control chosen-select" name="menu[]" tabindex="2" multiple>
-												<option value="Empty">&nbsp;</option>
+											<select data-placeholder="Choose a Section..." class="form-control chosen-select" name="section[]" tabindex="2" multiple>
+												<option value="">&nbsp;</option>
 												<?php foreach ($section_list as $key => $section) 
 												{?>
-													<option value="<?php echo $section->s_id;?>"><?php echo $section->title;?></option>
+													<option value="<?php echo $section->s_id;?>" <?php echo  set_select('section[]', $section->s_id, FALSE); ?>><?php echo $section->title;?></option>
 												<?php }?>
 											</select>
 										</div>
@@ -739,8 +739,8 @@
 										<label class="col-lg-3 control-label">Status</label>
 										<div class="col-lg-5">
 											<select data-placeholder="Choose a status..." class="form-control chosen-select" tabindex="4" name="status">
-												<option value="Empty">&nbsp;</option>
-												<option value="active">Active</option>
+												<option value="">&nbsp;</option>
+												<option value="active" <?php echo  set_select('status', 'active', FALSE); ?>>Active</option>
 												<option value="suspended" disabled="disabled">Suspended</option>
 											</select>
 										</div>

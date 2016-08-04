@@ -718,18 +718,32 @@
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Title</label>
 										<div class="col-lg-5">
-											<input type="text" class="form-control" name="title" placeholder="xxXXxx" required data-bv-notempty-message="Title is required and cannot be empty" />
+											<input type="text" class="form-control" name="title" placeholder="xxXXxx" required data-bv-notempty-message="Title is required and cannot be empty" value="<?php echo set_value('title');?>" />
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Manager</label>
 										<div class="col-lg-5">
-											<input type="text" class="form-control" name="manager" placeholder="xxXXxx" required data-bv-notempty-message="Manager is required and cannot be empty" />
+											<input type="text" class="form-control" name="manager" value="<?php echo set_value('manager');?>" placeholder="xxXXxx" required data-bv-notempty-message="Manager is required and cannot be empty" />
 										</div>
 									</div>
 
 									<div class="form-group">
+										<label class="col-lg-3 control-label">Email</label>
+										<div class="col-lg-5">
+											<input type="email" class="form-control" name="email" value="<?php echo set_value('email');?>" placeholder="xxXXxx@xxx.com" required data-bv-notempty-message="Email is required and cannot be empty" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Mobile #</label>
+										<div class="col-lg-5">
+											<input type="text" class="form-control" name="mobile" value="<?php echo set_value('mobile');?>" placeholder="xxXXxxxxx" required data-bv-notempty-message="Mobile is required and cannot be empty" />
+										</div>
+									</div>
+
+									<!-- <div class="form-group">
 										<label class="col-lg-3 control-label">Area</label>
 										<div class="col-lg-5">
 											<select data-placeholder="Choose an area..." class="form-control chosen-select" tabindex="3" name="a_id">
@@ -741,14 +755,14 @@
 												?>
 											</select>
 										</div>
-									</div>
+									</div> -->
 
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Status</label>
 										<div class="col-lg-5">
 											<select data-placeholder="Choose a status..." class="form-control chosen-select" tabindex="4" name="status">
-												<option value="Empty">&nbsp;</option>
-												<option value="active">Active</option>
+												<option value="">&nbsp;</option>
+												<option value="active" <?php set_select('status','active',FALSE);?>>Active</option>
 												<option value="suspended" disabled="disabled">Suspended</option>
 											</select>
 										</div>

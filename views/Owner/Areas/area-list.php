@@ -700,40 +700,55 @@
                                 <?php echo $this->session->flashdata('failure');?>
                             </div>
                         <?php }?>
-						<div class="table-responsive">
-						<table class="table table-striped table-hover" id="datatable-example">
-							<thead class="the-box dark full">
-								<tr>
-									<th>Sr #</th>
-									<th>Title</th>
-									<th>Status</th>
-									<th>Added By</th>
-									<th>Added Date</th>
-									<th>Options</th>
-								</tr>
-							</thead>
-							<tbody>
 
-								<?php foreach ($area_list as $key => $area)
-								{?>
-									<tr class="<?php if($key %2 == 0){ ?>even <?php } else{?> odd <?php } ?>">
-										<td><?php echo $key+1;?></td>
-										<td><?php echo $area->title;?></td>
-										<td><?php echo ucfirst($area->status);?></td>
-										<td><?php echo $area->add_by;?></td>
-										<td><?php echo $area->date_added;?></td>
-										<td>
-											<button class="btn btn-info btn-perspective" onclick="window.location.href='area.view/<?php echo $area->a_id;?>';">View</button>
-											<button class="btn btn-warning btn-perspective">Edit</button>
-											<button class="btn btn-danger btn-perspective">Delete</button>
-										</td>
-									</tr>
-								<?php }?>
+                        <?php if(count($area_list)):?>
+							
+							<div class="table-responsive">
+								<table class="table table-striped table-hover" id="datatable-example">
+									<thead class="the-box dark full">
+										<tr>
+											<th>Sr #</th>
+											<th>Title</th>
+											<th>Status</th>
+											<th>Added By</th>
+											<th>Added Date</th>
+											<th>Options</th>
+										</tr>
+									</thead>
+									<tbody>
 
-								
-							</tbody>
-						</table>
-						</div><!-- /.table-responsive -->
+										<?php foreach ($area_list as $key => $area)
+										{?>
+											<tr class="<?php if($key %2 == 0){ ?>even <?php } else{?> odd <?php } ?>">
+												<td><?php echo $key+1;?></td>
+												<td><?php echo $area->title;?></td>
+												<td><?php echo ucfirst($area->status);?></td>
+												<td><?php echo $area->add_by;?></td>
+												<td><?php echo $area->date_added;?></td>
+												<td>
+													<button class="btn btn-info btn-perspective" onclick="window.location.href='area.view/<?php echo $area->a_id;?>';">View</button>
+													<?php if ($area->branch_exists == 'yes') { ?>
+														<button class="btn btn-warning btn-perspective" onclick="window.location.href='revise.area.branch/<?php echo $area->a_id;?>';">Edit Branches</button>
+													<?php }else{?>
+													<button class="btn btn-info btn-perspective" onclick="window.location.href='register.area.branch/<?php echo $area->a_id;?>';">Assign Branches</button>
+													<?php }?>
+													<button class="btn btn-warning btn-perspective">Edit</button>
+													<button class="btn btn-danger btn-perspective">Delete</button>
+												</td>
+											</tr>
+										<?php }?>
+
+									</tbody>
+								</table>
+							</div><!-- /.table-responsive -->
+
+						<?php else:?>
+
+							<div class="alert alert-warning">
+                                <p>No area found <a href="register.area" title="New Area">Add Area</a></p>
+                            </div>
+
+						<?php endif;?>
 					</div><!-- /.the-box .default -->
 					<!-- END DATA TABLE -->
 				

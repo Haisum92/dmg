@@ -8,14 +8,14 @@ class AreaModel extends CI_Model{
 		$this->config->load('dbconfig');
 	}
 
-	public function add_area()
+	public function add_post()
 	{
 		// echo hash('sha224','admin123'.dmgSalt);
-		$db_areas  = $this->config->item('db_areas');
+		$db_posts  = $this->config->item('db_posts');
 		$col_arr   = $vals = $area_detail = array();
 		$insert_id = "";
 		
-		$col_arr = array('title','status','added_by','date_added');
+		$col_arr = array('title','a_id','b_id','comments','excerpt','content','status','added_by','date_added','date_updated');
 
 		foreach ($col_arr as $key => $col)
 		{
@@ -29,14 +29,14 @@ class AreaModel extends CI_Model{
 				$vals[] = $cur_user_detail->u_id;
 
 			}else{
-				$vals[] =  ( !empty($this->input->post($col)) ) ? "'".$this->input->post($col)."'" : "";
+				$vals[] =  ( !empty($this->input->post($col)) ) ? "'".@mysql_real_escape_string($this->input->post($col))."'" : "";
 			}
 		}
 
 		$col_arr = implode(',',$col_arr);
 		$vals    = implode(',',$vals);
 
-		$ins_query = "INSERT INTO $db_areas ($col_arr) VALUES ($vals) ";;
+		$ins_query = "INSERT INTO $db_posts ($col_arr) VALUES ($vals) ";;
 		$q_result  = $this->db->query($ins_query);
 		$insert_id = $this->db->insert_id();
 

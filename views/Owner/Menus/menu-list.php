@@ -729,7 +729,7 @@
 													<?php if ($menu->section_exists == 'yes') { ?>
 														<button class="btn btn-warning btn-perspective" onclick="window.location.href='revise.menu.section/<?php echo $menu->m_id;?>';">Edit Section</button>
 													<?php }else{?>
-													<button class="btn btn-info btn-perspective" onclick="window.location.href='register.menu.section/<?php echo $menu->m_id;?>';">Assign Menu</button>
+													<button class="btn btn-info btn-perspective" onclick="window.location.href='register.menu.section/<?php echo $menu->m_id;?>';">Assign Section</button>
 													<?php }?>
 													<button class="btn btn-warning btn-perspective">Edit</button>
 													<button class="btn btn-danger btn-perspective">Delete</button>

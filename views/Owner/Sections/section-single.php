@@ -1,6 +1,5 @@
-<?php $this->load->view('Owner/header');?>
-		
-		<!--
+<?php $this->load->view('Owner/Users/header');?>
+<!--
 		===========================================================
 		BEGIN PAGE
 		===========================================================
@@ -12,7 +11,7 @@
 					
 					<!-- Begin Logo brand -->
 					<div class="logo-brand">
-						<a href="<?php echo base_url();?>"><img src="<?php echo $this->config->item('base_url_assets');?>img/sentir-logo-primary.png" alt="Sentir logo"></a>
+						<a href="<?php echo base_url();?>"><img src="<?php echo $this->config->item('base_url_assets')?>img/sentir-logo-primary.png" alt="Sentir logo"></a>
 					</div><!-- /.logo-brand -->
 					<!-- End Logo brand -->
 					
@@ -41,7 +40,7 @@
 						<ul class="nav-user navbar-right">
 							<li class="dropdown">
 							  <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
-								<img src="<?php echo $this->config->item('base_url_assets');?>img/avatar/avatar.jpg" class="avatar img-circle" alt="Avatar">
+								<img src="<?php echo $this->config->item('base_url_assets')?>img/avatar/avatar.jpg" class="avatar img-circle" alt="Avatar">
 								Hi, <strong>Paris Hawker</strong>
 							  </a>
 							  <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
@@ -51,7 +50,7 @@
 								<li><a href="#fakelink">My public profile</a></li>
 								<li class="divider"></li>
 								<li><a href="lock-screen.html">Lock screen</a></li>
-								<li><a href="destroy.me">Log out</a></li>
+								<li><a href="<?php echo base_url('destroy.me');?>">Log out</a></li>
 							  </ul>
 							</li>
 						</ul>
@@ -678,279 +677,73 @@
 				<div class="container-fluid">
 				
 				<!-- Begin page heading -->
-				<h1 class="page-heading">DASHBOARD <!-- <small>Sub heading here</small> --></h1>
-				<!-- End page heading -->
+					<h1 class="page-heading">Section Managment <!-- <small>Sub heading here</small> --></h1>
+					<!-- End page heading -->
 				
-					<!-- BEGIN EXAMPLE ALERT -->
-					<div class="alert alert-warning alert-bold-border fade in alert-dismissable">
-					  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					  <p><strong>Welcome!</strong></p>
-					  <p class="text-muted">Welcome to the wonderful world of directory managment. With advanced features you can play with any type of data. Hope you enjoy the experience <i class="fa fa-smile-o"></i></p>
-					</div>
-					<!-- END EXAMPLE ALERT -->
-				
-					
-					<!-- BEGIN CAROUSEL ITEM -->
-					<div class="the-box no-border">
-					<h4 class="small-heading more-margin-bottom text-center">LASTES POSTS</h4>
-						<div id="store-item-carousel-3" class="owl-carousel shop-carousel">
-							<div class="item">
-								<div class="media">
-									<a class="pull-left" href="#fakelink">
-									  <img class="media-object sm" src="assets/img/shop/img-shop.jpg" alt="Image">
-									</a>
-									<div class="media-body">
-									  <h4 class="media-heading"><a href="#fakelink">Product name here</a></h4>
-									  <p class="brand">BRAND NAME</p>
-									  <p class="price text-danger"><strong>&#36;50.00</strong></p>
-									</div>
-								</div>
-							</div><!-- /.item -->
-							<div class="item">
-								<div class="media">
-									<a class="pull-left" href="#fakelink">
-									  <img class="media-object sm" src="assets/img/shop/img-shop.jpg" alt="Image">
-									</a>
-									<div class="media-body">
-									  <h4 class="media-heading"><a href="#fakelink">Product name here</a></h4>
-									  <p class="brand">BRAND NAME</p>
-									  <p class="price text-danger"><strong>&#36;50.00</strong></p>
-									</div>
-								</div>
-							</div><!-- /.item -->
-							<div class="item">
-								<div class="media">
-									<a class="pull-left" href="#fakelink">
-									  <img class="media-object sm" src="assets/img/shop/img-shop.jpg" alt="Image">
-									</a>
-									<div class="media-body">
-									  <h4 class="media-heading"><a href="#fakelink">Product name here</a></h4>
-									  <p class="brand">BRAND NAME</p>
-									  <p class="price text-danger"><strong>&#36;50.00</strong></p>
-									</div>
-								</div>
-							</div><!-- /.item -->
-							<div class="item">
-								<div class="media">
-									<a class="pull-left" href="#fakelink">
-									  <img class="media-object sm" src="assets/img/shop/img-shop.jpg" alt="Image">
-									</a>
-									<div class="media-body">
-									  <h4 class="media-heading"><a href="#fakelink">Product name here</a></h4>
-									  <p class="brand">BRAND NAME</p>
-									  <p class="price text-danger"><strong>&#36;50.00</strong></p>
-									</div>
-								</div>
-							</div><!-- /.item -->
-							<div class="item">
-								<div class="media">
-									<a class="pull-left" href="#fakelink">
-									  <img class="media-object sm" src="assets/img/shop/img-shop.jpg" alt="Image">
-									</a>
-									<div class="media-body">
-									  <h4 class="media-heading"><a href="#fakelink">Product name here</a></h4>
-									  <p class="brand">BRAND NAME</p>
-									  <p class="price text-danger"><strong>&#36;50.00</strong></p>
-									</div>
-								</div>
-							</div><!-- /.item -->
-							<div class="item">
-								<div class="media">
-									<a class="pull-left" href="#fakelink">
-									  <img class="media-object sm" src="assets/img/shop/img-shop.jpg" alt="Image">
-									</a>
-									<div class="media-body">
-									  <h4 class="media-heading"><a href="#fakelink">Product name here</a></h4>
-									  <p class="brand">BRAND NAME</p>
-									  <p class="price text-danger"><strong>&#36;50.00</strong></p>
-									</div>
-								</div>
-							</div><!-- /.item -->
-							<div class="item">
-								<div class="media">
-									<a class="pull-left" href="#fakelink">
-									  <img class="media-object sm" src="assets/img/shop/img-shop.jpg" alt="Image">
-									</a>
-									<div class="media-body">
-									  <h4 class="media-heading"><a href="#fakelink">Product name here</a></h4>
-									  <p class="brand">BRAND NAME</p>
-									  <p class="price text-danger"><strong>&#36;50.00</strong></p>
-									</div>
-								</div>
-							</div><!-- /.item -->
-							<div class="item">
-								<div class="media">
-									<a class="pull-left" href="#fakelink">
-									  <img class="media-object sm" src="assets/img/shop/img-shop.jpg" alt="Image">
-									</a>
-									<div class="media-body">
-									  <h4 class="media-heading"><a href="#fakelink">Product name here</a></h4>
-									  <p class="brand">BRAND NAME</p>
-									  <p class="price text-danger"><strong>&#36;50.00</strong></p>
-									</div>
-								</div>
-							</div><!-- /.item -->
-							<div class="item">
-								<div class="media">
-									<a class="pull-left" href="#fakelink">
-									  <img class="media-object sm" src="assets/img/shop/img-shop.jpg" alt="Image">
-									</a>
-									<div class="media-body">
-									  <h4 class="media-heading"><a href="#fakelink">Product name here</a></h4>
-									  <p class="brand">BRAND NAME</p>
-									  <p class="price text-danger"><strong>&#36;50.00</strong></p>
-									</div>
-								</div>
-							</div><!-- /.item -->
-							<div class="item">
-								<div class="media">
-									<a class="pull-left" href="#fakelink">
-									  <img class="media-object sm" src="assets/img/shop/img-shop.jpg" alt="Image">
-									</a>
-									<div class="media-body">
-									  <h4 class="media-heading"><a href="#fakelink">Product name here</a></h4>
-									  <p class="brand">BRAND NAME</p>
-									  <p class="price text-danger"><strong>&#36;50.00</strong></p>
-									</div>
-								</div>
-							</div><!-- /.item -->
-						</div><!-- /#store-item-carousel-1 -->
-					</div><!-- /.the-box .no-border -->
-					<!-- END CAROUSEL ITEM -->
-					
-					
-					
-					<div class="row">
-						<div class="col-sm-8">
-							
-							<!-- BEGIN ITEM SHOWCASE -->
-							<div class="the-box full no-border item-lg">
-								<div id="store-item-carousel-2" class="owl-carousel">
-								  <div class="item full"><img src="assets/img/photo/large/img.jpg" class="item-image" alt="Image"></div>
-								  <div class="item full"><img src="assets/img/photo/large/img.jpg" class="item-image" alt="Image"></div>
-								</div>
-								<div class="item-des">
-									<div class="the-box transparent no-margin">
-									<h4 class="small-heading more-margin-bottom">FEATURED PRODUCT</h4>
-										<h1><a href="#fakelink">You product name here</a></h1>
-										<h4 class="bolded">&#36;220.00</h4>
-										<p class="text-muted item-des-text">
-										Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-										</p>
-										<p>
-											<i class="fa fa-star text-warning"></i>
-											<i class="fa fa-star text-warning"></i>
-											<i class="fa fa-star text-warning"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</p>
-										<button class="btn btn-success btn-block btn-add">Add to cart</button>
-									</div><!-- /.the-box .transparent .no-margin -->
-								</div><!-- /.item-des -->
-							</div><!-- /.the-box .full -->
-							<!-- END ITEM SHOWCASE -->
-							
-						</div><!-- /.col-sm-8 -->
-						<div class="col-sm-4">
-							
-							<!-- BEGIN REMINDER WIDGET -->
-							<div class="the-box no-border full">
-								<div class="the-box bg-dark no-border no-margin">
-									<p class="text-center"><i class="fa fa-clock-o icon-lg"></i></p>
-									<h4 class="bolded less-distance text-danger text-center">My personal reminder</h4>
-								</div><!-- /.the-box no-border no-margin -->
-								<div class="the-box no-border bg-danger no-margin">
-								<h4>Next week agenda</h4>
-								<hr />
-									<div id="tiles-slide-1" class="owl-carousel my-reminder">
-									  <div class="item full text-left">
-										<p>
-										Eating some sand and listening alay songs in the small hole under bridge
-										</p>
-										<p class="small">Wrote about a month ago</p>
-									  </div>
-									  <div class="item full">
-										<p>
-										Go to school again, do homework again, meet some best friends again
-										</p>
-										<p class="small">Wrote about a week ago</p>
-									  </div>
-									  <div class="item full">
-										<p>
-										Finishing all my works, time to vacation, spending time with family and friends
-										</p>
-										<p class="small">Wrote 2 days ago</p>
-									  </div>
-									</div><!-- /#tiles-slide-1 -->
-								</div><!-- /.the-box no-border bg-danger no-margin -->
-							</div><!-- /.the-box .no-border .full -->
-							<!-- END REMINDER WIDGET -->
-							
-						</div><!-- /.col-sm-4 -->
-					</div><!-- /.row -->
+					<!-- Begin breadcrumb -->
+					<ol class="breadcrumb default square rsaquo sm">
+						<li><a href="<?php echo base_url();?>"><i class="fa fa-home"></i></a></li>
+						<li><a href="<?php echo base_url('owner/area.all');?>">Section</a></li>
+						<li>Section Detail</li>
+					</ol>
+					<!-- End breadcrumb -->
 
-					<!-- BEGIN SiTE INFORMATIONS -->
-					<div class="row">
-						<div class="col-sm-3">
-							<div class="the-box no-border bg-success tiles-information">
-								<i class="fa fa-users icon-bg"></i>
-								<div class="tiles-inner text-center">
-									<p>NO OF POSTS</p>
-									<h1 class="bolded">12,254K</h1> 
-									<div class="progress no-rounded progress-xs">
-									  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-									  </div><!-- /.progress-bar .progress-bar-success -->
-									</div><!-- /.progress .no-rounded -->
-									<p><small>Better than yesterday ( 7,5% )</small></p>
-								</div><!-- /.tiles-inner -->
-							</div><!-- /.the-box no-border -->
-						</div><!-- /.col-sm-3 -->
-						<div class="col-sm-3">
-							<div class="the-box no-border bg-primary tiles-information">
-								<i class="fa fa-shopping-cart icon-bg"></i>
-								<div class="tiles-inner text-center">
-									<p>TOTAL ADMINS</p>
-									<h1 class="bolded">5</h1> 
-									<div class="progress no-rounded progress-xs">
-									  <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-									  </div><!-- /.progress-bar .progress-bar-primary -->
-									</div><!-- /.progress .no-rounded -->
-									<p><small>Same as yesterday</small></p>
-								</div><!-- /.tiles-inner -->
-							</div><!-- /.the-box no-border -->
-						</div><!-- /.col-sm-3 -->
-						<div class="col-sm-3">
-							<div class="the-box no-border bg-danger tiles-information">
-								<i class="fa fa-comments icon-bg"></i>
-								<div class="tiles-inner text-center">
-									<p>TODAY LOGS</p>
-									<h1 class="bolded">12</h1> 
-									<div class="progress no-rounded progress-xs">
-									  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-									  </div><!-- /.progress-bar .progress-bar-danger -->
-									</div><!-- /.progress .no-rounded -->
-									<p><small>Less than yesterday ( <span class="text-danger">-7,5%</span> )</small></p>
-								</div><!-- /.tiles-inner -->
-							</div><!-- /.the-box no-border -->
-						</div><!-- /.col-sm-3 -->
-						<div class="col-sm-3">
-							<div class="the-box no-border bg-warning tiles-information">
-								<i class="fa fa-money icon-bg"></i>
-								<div class="tiles-inner text-center">
-									<p>TOTAL IMAGES</p>
-									<h1 class="bolded">10,241</h1> 
-									<div class="progress no-rounded progress-xs">
-									  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-									  </div><!-- /.progress-bar .progress-bar-warning -->
-									</div><!-- /.progress .no-rounded -->
-									<p><small>Better than yesterday ( 2,5% )</small></p>
-								</div><!-- /.tiles-inner -->
-							</div><!-- /.the-box no-border -->
-						</div><!-- /.col-sm-3 -->
-					</div><!-- /.row -->
-					<!-- END SITE INFORMATIONS -->			
-					
-					
+					<?php
+
+					/*echo '<pre>';print_r($user_list);echo '</pre>';
+					die('yoho!');*/
+					?>
+					<!-- BEGIN DATA TABLE -->
+					<div class="the-box">
+						
+						<?php if ($this->session->flashdata('success') != ""){?>
+                            <div class="alert alert-success">
+                                <?php echo $this->session->flashdata('success');?>
+                            </div>
+                        <?php }?>
+                        <?php if ($this->session->flashdata('failure') != ""){?>
+                            <div class="alert alert-danger">
+                                <?php echo $this->session->flashdata('failure');?>
+                            </div>
+                        <?php }?>
+
+                        <div class="row">
+	                        <div class="col-lg-12">
+	                        	<div class="row">
+	                        		<div class="col-lg-4">
+	                        			<label for="Title">Title</label>: <?php echo $section_data[0]->title;?>
+	                        		</div>
+	                        		<div class="col-lg-4">
+	                        			<label for="Status">Status</label>: <?php echo ucfirst($section_data[0]->status);?>
+	                        		</div>
+	                        		<div class="col-lg-4">
+	                        			<label for="Add By">Add By</label>: <?php echo $section_data[0]->add_by;?>
+	                        		</div>
+	                        	</div>
+	                        </div>
+	                    </div>
+
+	                    <div class="row">
+	                        <div class="col-lg-12">
+	                        	<div class="row">
+	                        		<div class="col-lg-4">
+	                        			<label for="Added Date">Added Date</label>: <?php echo date("M, d, Y @ g:i:s a", strtotime($section_data[0]->date_added));?>
+	                        		</div>
+	                        	</div>
+	                        </div>
+	                    </div>
+
+	                    <div class="row">
+	                        <div class="col-lg-12">
+	                        	<div class="row">
+	                        		<div class="col-lg-4">
+	                        			<button class="btn btn-info btn-perspective" onclick="window.location.href='../section.all';">Back To Sections List</button>
+	                        		</div>
+	                        	</div>
+	                        </div>
+	                    </div>
+					</div><!-- /.the-box .default -->
+					<!-- END DATA TABLE -->
 				
 				</div><!-- /.container-fluid -->
 				
@@ -967,13 +760,5 @@
 			</div><!-- /.page-content -->
 		</div><!-- /.wrapper -->
 		<!-- END PAGE CONTENT -->
-		
-		
-	
-		<!-- BEGIN BACK TO TOP BUTTON -->
-		<div id="back-top">
-			<a href="#top"><i class="fa fa-chevron-up"></i></a>
-		</div>
-		<!-- END BACK TO TOP -->
 
-<?php $this->load->view('Owner/footer');?>	
+<?php $this->load->view('Owner/Users/footer');?>	

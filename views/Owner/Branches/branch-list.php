@@ -706,7 +706,7 @@
 								<tr>
 									<th>Sr #</th>
 									<th>Title</th>
-									<th>Area</th>
+									<!-- <th>Area</th> -->
 									<th>Status</th>
 									<th>Added By</th>
 									<th>Added Date</th>
@@ -720,12 +720,12 @@
 									<tr class="<?php if($key %2 == 0){ ?>even <?php } else{?> odd <?php } ?>">
 										<td><?php echo $key+1;?></td>
 										<td><?php echo $branch->title;?></td>
-										<td><?php echo $branch->area_title;?></td>
+										<?php /* <td><?php echo $branch->area_title;?></td> */?>
 										<td><?php echo ucfirst($branch->status);?></td>
 										<td><?php echo $branch->add_by;?></td>
 										<td><?php echo $branch->date_added;?></td>
 										<td>
-											<button class="btn btn-info btn-perspective" onclick="window.location.href='branch.view/<?php echo $branch->a_id;?>';">View</button>
+											<button class="btn btn-info btn-perspective" onclick="window.location.href='branch.view/<?php echo $branch->b_id;?>';">View</button>
 											<?php 
 											if ($branch->menu_exists == 'yes') { ?>
 												<button class="btn btn-warning btn-perspective" onclick="window.location.href='revise.branch.menu/<?php echo $branch->b_id;?>';">Edit Menus</button>

@@ -44,28 +44,6 @@ class MenuModel extends CI_Model{
 	
 	}
 
-	public function edit_menu($menu_id)
-	{
-		$db_menus = $this->config->item('db_menus');
-		
-		$title           = "'".@mysql_real_escape_string($this->input->post('title'))."'";
-		$area_id         = "'".@mysql_real_escape_string($this->input->post('a_id'))."'";
-		$status          = $this->input->post('status');
-		$cur_user_detail = $this->session->userdata('user_details');
-		$u_id            = $cur_user_detail->u_id;
-
-		$edit_query = "UPDATE $db_menus SET 
-						title      = '$title', 
-						status     = '$status' 
-						WHERE m_id = '$menu_id'
-						";
-		
-		$update_res  = $this->db->query($edit_query);
-		
-		return $update_res;
-	
-	}
-
 	public function get_by_id()
 	{
 		$this->load->model('Menu/MenuLibrary');

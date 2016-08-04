@@ -15,7 +15,7 @@ class BranchModel extends CI_Model{
 		$col_arr     = $vals = array();
 		$insert_id   = "";
 		
-		$col_arr = array('title','a_id','status','added_by','date_added');
+		$col_arr = array('title','manager','email','mobile','status','added_by','date_added');
 
 		foreach ($col_arr as $key => $col)
 		{
@@ -41,7 +41,7 @@ class BranchModel extends CI_Model{
 		$insert_id = $this->db->insert_id();
 
 		return $insert_id;
-	
+
 	}
 
 	public function edit_branch($branch_id)

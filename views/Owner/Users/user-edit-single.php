@@ -924,7 +924,7 @@
                                         <?php echo $this->session->flashdata('failure');?>
                                     </div>
                                 <?php }?>
-								<form id="FormExample1" method="post" name="user_registration_form" class="form-horizontal" action=""
+								<form id="FormExample1" method="post" name="user_registration_form" class="form-horizontal" action="" novalidate
 									  data-bv-message="This value is not valid"
 									  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
 									  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
@@ -1012,6 +1012,7 @@
 									<div class="form-group">
 										<div class="col-lg-9 col-lg-offset-3">
 											<button type="submit" name="edit_user" class="btn btn-primary">Update</button>
+											<button type="submit" name="cancel_user_edit" class="btn btn-primary" onclick="window.location.href='users.all'">Cancel</button>
 										</div>
 									</div>
 								</form>

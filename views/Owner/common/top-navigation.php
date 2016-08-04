@@ -46,14 +46,37 @@
 						  </ul>
 						</li>
 
-						<li class="dropdown <?php if(strpos($active_nav,'menu') !== false){?>active<?php }?>">
+						<li class="dropdown <?php if( (strpos($active_nav,'menu') !== false)){?>active<?php }?>">
 						  <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
 							  <span class="visible-sm visible-md"><i class="fa fa-folder"></i></span>
 							  <span class="hidden-sm hidden-md">Menu</span>
 						  </a>
 						  <ul class="dropdown-menu square margin-list-rounded with-triangle">
 							<li <?php if(strpos($active_nav,'add_menu') !== false){?>class="active"<?php }?>><a href="<?php echo base_url('owner/register.menu');?>">Add Menu</a></li>
+							<!-- <li <?php if(strpos($active_nav,'add_menu_section') !== false){?>class="active"<?php }?>><a href="<?php echo base_url('owner/register.menu.section');?>">Assign Menu Sections</a></li> -->
 							<li <?php if(strpos($active_nav,'menu_list') !== false){?>class="active"<?php }?>><a href="<?php echo base_url('owner/menu.all');?>">View All</a></li>
+						  </ul>
+						</li>
+
+						<li class="dropdown <?php if( (strpos($active_nav,'section') !== false)  && $active_nav != 'add_menu_section'){?>active<?php }?>">
+						  <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
+							  <span class="visible-sm visible-md"><i class="fa fa-folder"></i></span>
+							  <span class="hidden-sm hidden-md">Sections</span>
+						  </a>
+						  <ul class="dropdown-menu square margin-list-rounded with-triangle">
+							<li <?php if(strpos($active_nav,'add_section') !== false){?>class="active"<?php }?>><a href="<?php echo base_url('owner/register.section');?>">Add section</a></li>
+							<li <?php if(strpos($active_nav,'section_list') !== false){?>class="active"<?php }?>><a href="<?php echo base_url('owner/section.all');?>">View All</a></li>
+						  </ul>
+						</li>
+
+						<li class="dropdown <?php if( (strpos($active_nav,'post') !== false)){?>active<?php }?>">
+						  <a href="posts.all" class="dropdown-toggle" data-toggle="dropdown">
+							  <span class="visible-sm visible-md"><i class="fa fa-folder"></i></span>
+							  <span class="hidden-sm hidden-md">Posts</span>
+						  </a>
+						  <ul class="dropdown-menu square margin-list-rounded with-triangle">
+							<li <?php if(strpos($active_nav,'add_post') !== false){?>class="active"<?php }?>><a href="<?php echo base_url('owner/register.post');?>">Add Posts</a></li>
+							<li <?php if(strpos($active_nav,'post_list') !== false){?>class="active"<?php }?>><a href="<?php echo base_url('owner/posts.all');?>">View All</a></li>
 						  </ul>
 						</li>
 						

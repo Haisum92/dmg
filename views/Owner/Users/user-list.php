@@ -737,7 +737,7 @@
 										<td><?php echo $user->date_added;?></td>
 										<td>
 											<button class="btn btn-info btn-perspective" onclick="window.location.href='user.view/<?php echo $user->u_id;?>';">View</button>
-											<button class="btn btn-warning btn-perspective">Edit</button>
+											<button class="btn btn-warning btn-perspective" onclick="window.location.href='user.edit/<?php echo $user->u_id;?>';">Edit</button>
 											<button class="btn btn-danger btn-perspective">Delete</button>
 										</td>
 									</tr>

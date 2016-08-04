@@ -30,18 +30,16 @@ class BranchLibrary extends CI_Model{
 			$condition[] = "b.title LIKE ".'%'.@mysql_real_escape_string($params->title).'%';
 
 		if (isset($params->status))
-			$condition[] = "b.status = ".@mysql_real_escape_string($params->status);
+			$condition[] = "b.status = '".@mysql_real_escape_string($params->status)."'";
 
 		if (isset($params->load)){
-			if (in_array('added_by',  array('added_by'))) {
+
+			if (in_array('added_by',  $params->load)) {
 				$join[] = "INNER JOIN $db_users AS u1 ON u1.u_id = b.added_by ";
 				$custom_select[] = "u1.full_name AS add_by";
 			}
-			if (in_array('area',  array('added_by','area'))) {
-				$join[] = "INNER JOIN $db_areas AS a ON a.a_id = b.a_id ";
-				$custom_select[] = "a.title AS area_title";
-			}
-			if (in_array('has_branch',  array('added_by','area','has_branch'))) {
+			
+			if (in_array('has_branch',  $params->load)) {
 
 				$join[] = "LEFT JOIN $db_branch_menus AS bm
 							ON bm.`b_id` = b.`b_id`
@@ -85,7 +83,7 @@ class BranchLibrary extends CI_Model{
 		else
 			return NULL;
 	
-	}// end function login
+	}
 
 	public function get_all_menus($params)
 	{
