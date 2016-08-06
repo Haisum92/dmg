@@ -57,6 +57,9 @@ class Login extends CI_Controller {
 						die('Yoho! am here admin');
 						break;
 					case 'enduser':
+						/**************/
+						redirect('enduser', 'refresh');	// enduser means end user controller as defined in routes
+						/**************/
 						die('Yoho! am here enduser');
 						break;
 					default:

@@ -100,6 +100,21 @@ $route['owner/home']             = "SuperAdmin/index";
 $route['authenticate.me'] = "Login/authenticate";
 $route['destroy.me']      = "Login/destroy_session";
 
+
+/**************/
+/*
+* EndUser routes
+*/
+
+$route['enduser']                  			= "EndUser/index";
+$route['enduser/menu.all']                  = "EndUser/menu_list";
+/*
+* Ajax routes
+*/
+//$route['async/load_areas']      = "AsyncRequests/load_areas";
+$route['async/load_branches']      = "AsyncRequests/load_branches";
+/**************/
+
 // Default Routes
 $route['default_controller']   = 'SuperAdmin';
 $route['404_override']         = '';
