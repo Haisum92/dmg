@@ -23,6 +23,12 @@ class BranchLibrary extends CI_Model{
 		$start = (isset($params->start) && !empty($params->start) ? $params->start : 0);
 		$end = (isset($params->end) && !empty($params->end) ? $params->end : 20);
 
+		/**************/
+		if (isset($params->area_id)){
+			$condition[] = "a.a_id = ".@mysql_real_escape_string($params->area_id);
+			$join[] = "INNER JOIN $db_areas AS a ON a.a_id = b.a_id ";
+		}
+		/**************/
 		if (isset($params->branch_id))
 			$condition[] = "b.b_id = ".@mysql_real_escape_string($params->branch_id);
 
@@ -76,6 +82,7 @@ class BranchLibrary extends CI_Model{
 		
 
 		$sql = "SELECT b.* $custom_select FROM ".$db_branches." AS b $join $condition $group_by $order_by LIMIT $start,$end";
+
 		$result = $this->db->query($sql);
 
 		if( $result->num_rows() > 0 )

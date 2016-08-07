@@ -108,4 +108,5 @@ class AsyncRequests extends MY_Controller {
 		}
 	
 	}
+	
 }
