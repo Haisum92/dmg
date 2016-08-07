@@ -108,5 +108,28 @@ class AsyncRequests extends MY_Controller {
 		}
 	
 	}
+
+	public function load_branches()
+	{
+		if (!empty($this->input->post('a_id')) && intval($this->input->post('a_id')) != 0) {
+            $a_id = $this->input->post('a_id');
+
+            $this->load->model('Branch/BranchLibrary');
+
+			$u_obj              = new STDClass;
+			$u_obj->area_id 	= $a_id;
+			$u_obj->start       = 0;
+			$u_obj->end         = 1000;
+			$u_obj->load        = array('added_by','area','has_branch'); 
+			$u_obj->order_by    = "b.b_id DESC";
+			$area_branches  = $this->BranchLibrary->get_all($u_obj);
+
+			if (count($area_branches)) {
+				echo json_encode($area_branches);
+			}
+        } else {
+			echo json_encode(NULL);
+		}
+	}
 	
 }

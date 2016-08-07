@@ -4,12 +4,12 @@
 	<div class="container">
 		<h1 class="text-center">Filter</h1>
 		<div class="row">
-			<div class="col-sm-4"></div>
+			<div class="col-sm-4"><i style="display: none;" class="fa fa-spin fa-spinner"></i></div>
 			<div class="col-sm-4">
 				<div class="filter-wrapper">
 					<form action="<?php echo site_url('enduser/menu.all'); ?>" class="web_form" id="filter_form" name="filter_form" role="form" method="post" accept-charset="utf-8">
 						<div class="form-group has-feedback lg left-feedback no-label">
-							<select data-placeholder="Choose an Area..." class="form-control required" name="area" id="area-select" required><!--  chosen-select -->
+							<select data-placeholder="Choose an Area..." class="form-control required chosen-select" name="area" id="area-select" required>
 								<option value="">Choose an Area...</option>
 								<?php 
 									if (count($area_list)) {
@@ -21,7 +21,8 @@
 							</select>
 						</div>
 						<div class="form-group has-feedback lg left-feedback no-label">
-							<select data-placeholder="Choose a Branch..." class="form-control required" name="branch" id="branch-select" required><!--  chosen-select -->
+							<i style="display: none;" class="fa fa-spin fa-spinner"></i>
+							<select data-placeholder="Choose a Branch..." class="form-control required chosen-select" name="branch" id="branch-select" required>
 								<option value="">Choose a Branch...</option>
 								<?php 
 									if (count($branch_list)) {
@@ -31,7 +32,6 @@
 								  	} 
 							  	?>
 							</select>
-							<i style="display: none;" class="fa fa-spin fa-spinner"></i>
 						</div>
 						<div class="form-group">
 							<button type="submit" name="form_submit" value="login_form" class="btn btn-warning btn-lg btn-perspective btn-block">DONE</button>
