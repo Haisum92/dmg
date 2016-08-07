@@ -11,7 +11,7 @@
 					
 					<!-- Begin Logo brand -->
 					<div class="logo-brand">
-						<a href="<?php echo base_url();?>"><img src="<?php echo $this->config->item('base_url_assets')?>img/sentir-logo-primary.png" alt="Sentir logo"></a>
+						<h1>DMG</h1>
 					</div><!-- /.logo-brand -->
 					<!-- End Logo brand -->
 					
@@ -43,7 +43,7 @@
 								<img src="<?php echo $this->config->item('base_url_assets')?>img/avatar/avatar.jpg" class="avatar img-circle" alt="Avatar">
 								Hi, <strong>Paris Hawker</strong>
 							  </a>
-							  <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
+							  <ul class="dropdown-menu square info margin-list-rounded with-triangle">
 								<li><a href="#fakelink">Account setting</a></li>
 								<li><a href="#fakelink">Payment setting</a></li>
 								<li><a href="#fakelink">Change password</a></li>
@@ -709,23 +709,19 @@
                                         <?php echo $this->session->flashdata('failure');?>
                                     </div>
                                 <?php }?>
-								<form id="add_area_form" method="post" name="area_registration_form" class="form-horizontal" action="register.area"
-									  data-bv-message="This value is not valid"
-									  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
-									  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
-									  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+								<form id="add_area_form" method="post" name="area_registration_form" class="form-horizontal" action="register.area">
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Title</label>
 										<div class="col-lg-5">
-											<input type="text" class="form-control" name="title" placeholder="Dubai" required data-bv-notempty-message="Title is required and cannot be empty" />
+											<input type="text" class="form-control" name="title" id="title" placeholder="Dubai" required data-bv-notempty-message="Title is required and cannot be empty" />
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Status</label>
 										<div class="col-lg-5">
-											<select data-placeholder="Choose a user status..." class="form-control chosen-select" tabindex="3" name="status">
-												<option value="Empty">&nbsp;</option>
+											<select data-placeholder="Choose a user status..." class="form-control chosen-select" tabindex="3" name="status" id="status">
+												<option value="">&nbsp;</option>
 												<option value="active">Active</option>
 												<option value="suspended" disabled="disabled">Suspended</option>
 											</select>
@@ -734,7 +730,7 @@
 
 									<div class="form-group">
 										<div class="col-lg-9 col-lg-offset-3">
-											<button type="submit" name="register_area" class="btn btn-primary">Register</button>
+											<button type="submit" name="register_area" class="btn btn-info">Submit</button>
 										</div>
 									</div>
 								</form>
@@ -749,8 +745,7 @@
 				
 				<!-- BEGIN FOOTER -->
 				<footer>
-					&copy; <?php echo date('Y');?> <a href="#fakelink">Directory Managment</a><br />
-					Design by <a href="mailto:usman.haisum@gmail.com" target="_blank">Haisum</a>.
+					&copy; <?php echo date('Y');?> - All Rights Reserved.
 				</footer>
 				<!-- END FOOTER -->
 				

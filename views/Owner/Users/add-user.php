@@ -11,7 +11,7 @@
 					
 					<!-- Begin Logo brand -->
 					<div class="logo-brand">
-						<a href="<?php echo base_url();?>"><img src="<?php echo $this->config->item('base_url_assets')?>img/sentir-logo-primary.png" alt="Sentir logo"></a>
+						<h1>DMG</h1>
 					</div><!-- /.logo-brand -->
 					<!-- End Logo brand -->
 					
@@ -43,7 +43,7 @@
 								<img src="<?php echo $this->config->item('base_url_assets')?>img/avatar/avatar.jpg" class="avatar img-circle" alt="Avatar">
 								Hi, <strong>Paris Hawker</strong>
 							  </a>
-							  <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
+							  <ul class="dropdown-menu square info margin-list-rounded with-triangle">
 								<li><a href="#fakelink">Account setting</a></li>
 								<li><a href="#fakelink">Payment setting</a></li>
 								<li><a href="#fakelink">Change password</a></li>
@@ -126,7 +126,7 @@
 													</a></li>
 												</ul>
 											</div><!-- /.nav-dropdown-content scroll-nav-dropdown -->
-											<button class="btn btn-primary btn-square btn-block">See all notifications</button>
+											<button class="btn btn-info btn-square btn-block">See all notifications</button>
 										</li>
 									</ul>
 								</li>
@@ -186,7 +186,7 @@
 													</a></li>
 												</ul>
 											</div><!-- /.nav-dropdown-content scroll-nav-dropdown -->
-											<button class="btn btn-primary btn-square btn-block">See all notifications</button>
+											<button class="btn btn-info btn-square btn-block">See all notifications</button>
 										</li>
 									</ul>
 								</li>
@@ -251,7 +251,7 @@
 													</a></li>
 												</ul>
 											</div><!-- /.nav-dropdown-content scroll-nav-dropdown -->
-											<button class="btn btn-primary btn-square btn-block">See all message</button>
+											<button class="btn btn-info btn-square btn-block">See all message</button>
 										</li>
 									</ul>
 								</li>
@@ -343,7 +343,7 @@
 													</li>
 												</ul>
 											</div><!-- /.nav-dropdown-content scroll-nav-dropdown -->
-											<button class="btn btn-primary btn-square btn-block">See all request</button>
+											<button class="btn btn-info btn-square btn-block">See all request</button>
 										</li>
 									</ul>
 								</li>
@@ -537,7 +537,7 @@
 							<span class="small-caps">Yesterday 06:00:00</span>
 						</a></li>
 						
-						<li class="static text-center"><button class="btn btn-primary btn-sm">See all notifications</button></li>
+						<li class="static text-center"><button class="btn btn-info btn-sm">See all notifications</button></li>
 					</ul>
 				  </div>
 				  <div class="tab-pane fade" id="task-sidebar">
@@ -882,7 +882,7 @@
 
 									<div class="form-group">
 										<div class="col-lg-9 col-lg-offset-3">
-											<button type="submit" name="register_user" class="btn btn-primary">Register</button>
+											<button type="submit" name="register_user" class="btn btn-info">Submit</button>
 										</div>
 									</div>
 								</form>
@@ -897,8 +897,7 @@
 				
 				<!-- BEGIN FOOTER -->
 				<footer>
-					&copy; <?php echo date('Y');?> <a href="#fakelink">Directory Managment</a><br />
-					Design by <a href="mailto:usman.haisum@gmail.com" target="_blank">Haisum</a>.
+					&copy; <?php echo date('Y');?> - All Rights Reserved.
 				</footer>
 				<!-- END FOOTER -->
 				

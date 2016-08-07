@@ -45,7 +45,7 @@
 								<img src="<?php echo $this->config->item('base_url_assets');?>img/avatar/avatar.jpg" class="avatar img-circle" alt="Avatar">
 								Hi, <strong>Paris Hawker</strong>
 							  </a>
-							  <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
+							  <ul class="dropdown-menu square info margin-list-rounded with-triangle">
 								<li><a href="#fakelink">Account setting</a></li>
 								<li><a href="#fakelink">Payment setting</a></li>
 								<li><a href="#fakelink">Change password</a></li>
@@ -128,7 +128,7 @@
 													</a></li>
 												</ul>
 											</div><!-- /.nav-dropdown-content scroll-nav-dropdown -->
-											<button class="btn btn-primary btn-square btn-block">See all notifications</button>
+											<button class="btn btn-info btn-square btn-block">See all notifications</button>
 										</li>
 									</ul>
 								</li>
@@ -322,7 +322,7 @@
 							<span class="small-caps">Yesterday 06:00:00</span>
 						</a></li>
 						
-						<li class="static text-center"><button class="btn btn-primary btn-sm">See all notifications</button></li>
+						<li class="static text-center"><button class="btn btn-info btn-sm">See all notifications</button></li>
 					</ul>
 				  </div>
 				  <div class="tab-pane fade" id="task-sidebar">

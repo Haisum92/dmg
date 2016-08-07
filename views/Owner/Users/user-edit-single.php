@@ -11,7 +11,7 @@
 					
 					<!-- Begin Logo brand -->
 					<div class="logo-brand">
-						<a href="<?php echo base_url();?>"><img src="<?php echo $this->config->item('base_url_assets')?>img/sentir-logo-primary.png" alt="Sentir logo"></a>
+						<h1>DMG</h1>
 					</div><!-- /.logo-brand -->
 					<!-- End Logo brand -->
 					
@@ -43,7 +43,7 @@
 								<img src="<?php echo $this->config->item('base_url_assets')?>img/avatar/avatar.jpg" class="avatar img-circle" alt="Avatar">
 								Hi, <strong>Paris Hawker</strong>
 							  </a>
-							  <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
+							  <ul class="dropdown-menu square info margin-list-rounded with-triangle">
 								<li><a href="#fakelink">Account setting</a></li>
 								<li><a href="#fakelink">Payment setting</a></li>
 								<li><a href="#fakelink">Change password</a></li>
@@ -1001,8 +1001,8 @@
 									</div>
 									<div class="form-group">
 										<div class="col-lg-9 col-lg-offset-3">
-											<button type="submit" name="edit_user" class="btn btn-primary">Update</button>
-											<button type="button" name="cancel_user_edit" class="btn btn-primary" onclick="window.location.href='../users.all'">Cancel</button>
+											<button type="submit" name="edit_user" class="btn btn-info">Update</button>
+											<button type="button" name="cancel_user_edit" class="btn btn-info" onclick="window.location.href='../users.all'">Cancel</button>
 										</div>
 									</div>
 								</form>
@@ -1020,8 +1020,7 @@
 				
 				<!-- BEGIN FOOTER -->
 				<footer>
-					&copy; <?php echo date('Y');?> <a href="#fakelink">Directory Managment</a><br />
-					Design by <a href="mailto:usman.haisum@gmail.com" target="_blank">Haisum</a>.
+					&copy; <?php echo date('Y');?> - All Rights Reserved.
 				</footer>
 				<!-- END FOOTER -->
 				

@@ -11,7 +11,7 @@
 					
 					<!-- Begin Logo brand -->
 					<div class="logo-brand">
-						<a href="<?php echo base_url();?>"><img src="<?php echo $this->config->item('base_url_assets')?>img/sentir-logo-primary.png" alt="Sentir logo"></a>
+						<h1>DMG</h1>
 					</div><!-- /.logo-brand -->
 					<!-- End Logo brand -->
 					
@@ -43,7 +43,7 @@
 								<img src="<?php echo $this->config->item('base_url_assets')?>img/avatar/avatar.jpg" class="avatar img-circle" alt="Avatar">
 								Hi, <strong>Paris Hawker</strong>
 							  </a>
-							  <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
+							  <ul class="dropdown-menu square info margin-list-rounded with-triangle">
 								<li><a href="#fakelink">Account setting</a></li>
 								<li><a href="#fakelink">Payment setting</a></li>
 								<li><a href="#fakelink">Change password</a></li>
@@ -726,7 +726,7 @@
 										<label class="col-lg-3 control-label">Status</label>
 										<div class="col-lg-5">
 											<select data-placeholder="Choose a status..." class="form-control chosen-select" tabindex="4" name="status">
-												<option value="Empty">&nbsp;</option>
+												<option value="">&nbsp;</option>
 												<option value="active">Active</option>
 												<option value="suspended" disabled="disabled">Suspended</option>
 											</select>
@@ -735,7 +735,7 @@
 
 									<div class="form-group">
 										<div class="col-lg-9 col-lg-offset-3">
-											<button type="submit" name="register_section" class="btn btn-primary">Register</button>
+											<button type="submit" name="register_section" class="btn btn-info">Submit</button>
 										</div>
 									</div>
 								</form>
@@ -750,8 +750,7 @@
 				
 				<!-- BEGIN FOOTER -->
 				<footer>
-					&copy; <?php echo date('Y');?> <a href="#fakelink">Directory Managment</a><br />
-					Design by <a href="mailto:usman.haisum@gmail.com" target="_blank">Haisum</a>.
+					&copy; <?php echo date('Y');?> - All Rights Reserved.
 				</footer>
 				<!-- END FOOTER -->
 				
