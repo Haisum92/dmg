@@ -21,12 +21,8 @@ header('Content-Type: text/html; charset=utf-8');
 		<link href="<?php echo $this->config->item('base_url_assets')?>css/bootstrap.min.css" rel="stylesheet">
 		
 		<!-- PLUGINS CSS -->
-		<link href="<?php echo $this->config->item('base_url_assets')?>plugins/weather-icon/css/weather-icons.min.css" rel="stylesheet">
 		<link href="<?php echo $this->config->item('base_url_assets')?>plugins/prettify/prettify.min.css" rel="stylesheet">
 		<link href="<?php echo $this->config->item('base_url_assets')?>plugins/chosen/chosen.min.css" rel="stylesheet">
-		<link href="<?php echo $this->config->item('base_url_assets')?>plugins/owl-carousel/owl.carousel.min.css" rel="stylesheet">
-		<link href="<?php echo $this->config->item('base_url_assets')?>plugins/owl-carousel/owl.theme.min.css" rel="stylesheet">
-		<link href="<?php echo $this->config->item('base_url_assets')?>plugins/owl-carousel/owl.transitions.min.css" rel="stylesheet">
 		<link href="<?php echo $this->config->item('base_url_assets')?>plugins/validator/bootstrapValidator.min.css" rel="stylesheet">
 		<link href="<?php echo $this->config->item('base_url_assets')?>plugins/datatable/css/bootstrap.datatable.min.css" rel="stylesheet">
 

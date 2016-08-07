@@ -709,23 +709,19 @@
                                         <?php echo $this->session->flashdata('failure');?>
                                     </div>
                                 <?php }?>
-								<form id="add_branch_form" method="post" name="branch_registration_form" class="form-horizontal" action="../register.branch.menu/<?php echo $branch_data[0]->b_id;?>"
-									  data-bv-message="This value is not valid"
-									  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
-									  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
-									  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+								<form id="branch_menu_registration" method="post" name="branch_menu_registration" class="form-horizontal" action="../register.branch.menu/<?php echo $branch_data[0]->b_id;?>">
 									
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Title</label>
 										<div class="col-lg-5">
-											<input type="text" class="form-control" name="title" placeholder="xxXXxx" required data-bv-notempty-message="Title is required and cannot be empty" value="<?php echo $branch_data[0]->title;?>" disabled="disabled" />
+											<input type="text" class="form-control" name="title" id="title" placeholder="xxXXxx" value="<?php echo $branch_data[0]->title;?>" disabled="disabled" />
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Menus</label>
 										<div class="col-lg-5">
-											<select data-placeholder="Choose a Section..." class="form-control chosen-select" name="menu[]" tabindex="2" multiple>
+											<select data-placeholder="Choose a Section..." class="form-control chosen-select" name="menu[]" id="menu[]" tabindex="2" multiple>
 												<option value="">&nbsp;</option>
 												<?php foreach ($menu_list as $key => $menu) 
 												{
@@ -739,7 +735,7 @@
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Status</label>
 										<div class="col-lg-5">
-											<select data-placeholder="Choose a status..." class="form-control chosen-select" tabindex="4" name="status">
+											<select data-placeholder="Choose a status..." class="form-control chosen-select" tabindex="4" name="status" id="status">
 												<option value="">&nbsp;</option>
 												<option value="active" <?php echo  set_select('status[]', 'active', FALSE); ?>>Active</option>
 												<option value="suspended" disabled="disabled">Suspended</option>

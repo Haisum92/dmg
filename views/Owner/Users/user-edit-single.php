@@ -924,11 +924,7 @@
                                         <?php echo $this->session->flashdata('failure');?>
                                     </div>
                                 <?php }?>
-								<form id="FormExample1" method="post" name="user_registration_form" class="form-horizontal" action="" novalidate
-									  data-bv-message="This value is not valid"
-									  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
-									  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
-									  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+								<form id="user_edit_form" method="post" name="user_edit_form" class="form-horizontal" action="../user.edit/<?php echo $user_data[0]->u_id;?>">
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Full name</label>
 										<div class="col-lg-5">
@@ -946,20 +942,14 @@
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Password</label>
 										<div class="col-lg-5">
-											<input type="password" class="form-control" name="password"
-												   required data-bv-notempty-message="The password is required and cannot be empty"
-												   data-bv-identical="true" data-bv-identical-field="confirmPassword" data-bv-identical-message="The password and its confirm are not the same"
-												   data-bv-different="true" data-bv-different-field="username" data-bv-different-message="The password cannot be the same as username" placeholder="xxxxxxXXxxX" />
+											<input type="password" class="form-control" name="password" id="password" value="" placeholder="xxxxxxXXxxX" />
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Retype password</label>
 										<div class="col-lg-5">
-											<input type="password" class="form-control" name="confirmPassword"
-												   required data-bv-notempty-message="The confirm password is required and cannot be empty"
-												   data-bv-identical="true" data-bv-identical-field="password" data-bv-identical-message="The password and its confirm are not the same"
-												   data-bv-different="true" data-bv-different-field="username" data-bv-different-message="The password cannot be the same as username" placeholder="xxxxxxXXxxX"/>
+											<input type="password" class="form-control" name="confirmPassword" id="confirmPassword" value="" placeholder="xxxxxxXXxxX" />
 										</div>
 									</div>
 
@@ -990,7 +980,7 @@
 										<label class="col-lg-3 control-label">Role</label>
 										<div class="col-lg-5">
 											<select data-placeholder="Choose a Country..." class="form-control chosen-select" tabindex="2" name="role">
-												<option value="Empty">&nbsp;</option>
+												<option value="">&nbsp;</option>
 												<option value="admin" <?php echo ($user_data[0]->role == 'admin') ? 'selected' : ''; ?>>Manager</option>
 												<option value="enduser" <?php echo ($user_data[0]->role == 'enduser') ? 'selected' : ''; ?>>User</option>
 												<option value="superadmin" disabled="disabled">Administrator</option>
@@ -1002,7 +992,7 @@
 										<label class="col-lg-3 control-label">Status</label>
 										<div class="col-lg-5">
 											<select data-placeholder="Choose a user status..." class="form-control chosen-select" tabindex="3" name="status">
-												<option value="Empty">&nbsp;</option>
+												<option value="">&nbsp;</option>
 												<option value="active" <?php echo ($user_data[0]->status == 'active') ? 'selected' : ''; ?>>Active</option>
 												<option value="pending" <?php echo ($user_data[0]->status == 'pending') ? 'selected' : ''; ?>>Pending</option>
 												<option value="suspended" disabled="disabled">Suspended</option>
@@ -1012,7 +1002,7 @@
 									<div class="form-group">
 										<div class="col-lg-9 col-lg-offset-3">
 											<button type="submit" name="edit_user" class="btn btn-primary">Update</button>
-											<button type="submit" name="cancel_user_edit" class="btn btn-primary" onclick="window.location.href='users.all'">Cancel</button>
+											<button type="button" name="cancel_user_edit" class="btn btn-primary" onclick="window.location.href='../users.all'">Cancel</button>
 										</div>
 									</div>
 								</form>

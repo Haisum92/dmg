@@ -49,14 +49,14 @@ class AreaModel extends CI_Model{
 		$db_areas = $this->config->item('db_areas');
 		
 		$title  = "'".@mysql_real_escape_string($this->input->post('title'))."'";
-		$status = $this->input->post('status');
+		$status = "'".$this->input->post('status')."'";
 		$cur_user_detail = $this->session->userdata('user_details');
 		$u_id = $cur_user_detail->u_id;
 
 		$edit_query = "UPDATE $db_areas SET 
-						title      = '$title', 
-						status     = '$status'
-						WHERE a_id = '$area_id'
+						title      = $title, 
+						status     = $status
+						WHERE a_id = $area_id
 						";
 		
 		$update_rows  = $this->db->query($edit_query);
@@ -200,6 +200,91 @@ class AreaModel extends CI_Model{
 		$del_res = $this->db->query($delete_query);
 		die('yoho!');
 		$up_res = $this->db->update_batch($db_branch_menus,$data, 25);*/
+	
+	}
+
+	public function delete_area()
+	{
+		if (!isset($this->area_id) OR empty($this->area_id)) {
+			return false;
+		}
+
+		$result           = "";
+		$db_post_images   = $this->config->item('db_post_images');
+		$db_posts         = $this->config->item('db_posts');
+		$db_areas         = $this->config->item('db_areas');
+		$db_area_branches = $this->config->item('db_area_branches');
+
+		$sql 	= "SELECT pi.* FROM $db_post_images AS pi
+					INNER JOIN $db_posts p ON p.p_id = pi.p_id
+					INNER JOIN $db_area_branches ab ON ab.a_id = p.a_id
+					INNER JOIN $db_areas a ON a.a_id = ab.a_id
+					WHERE a.a_id = ?
+					";
+
+		$result	=	$this->db->query($sql, array($this->area_id));
+
+		if (count($result->num_rows())) 
+		{
+			foreach ($result->result() as $key => $img)
+			{
+				$rdir = $img->p_id;
+				$rdir = $this->config->item('base_url_post_images').$rdir;
+				// die('Yoho! am here');
+				unlink($img->image_path);
+			}
+			rmdir($rdir);
+		}
+
+		$sql	= "DELETE pi FROM $db_post_images AS pi
+					INNER JOIN $db_posts p ON p.p_id = pi.p_id
+					INNER JOIN $db_area_branches ab ON ab.a_id = p.a_id
+					INNER JOIN $db_areas a ON a.a_id = ab.a_id
+					WHERE a.a_id = ?";
+
+		$result	=	$this->db->query($sql, array($this->area_id));
+
+		if ($result) {
+			
+			$sql	= "DELETE p FROM $db_posts p
+					INNER JOIN $db_area_branches ab ON ab.a_id = p.a_id
+					INNER JOIN $db_areas a ON a.a_id = ab.a_id
+					WHERE p.a_id = ?";
+
+			$result	=	$this->db->query($sql, array($this->area_id));
+			
+			if ($result) {
+
+				$sql	= "DELETE ab FROM $db_area_branches ab
+							INNER JOIN $db_areas a ON a.a_id = ab.a_id
+							WHERE ab.a_id = ?";
+
+				$result	=	$this->db->query($sql, array($this->area_id));
+				if ($result) {
+
+					$sql	= "DELETE a FROM $db_areas a
+								WHERE a.a_id = ?";
+
+				$result	=	$this->db->query($sql, array($this->area_id));
+					if ($result) {
+						return true;
+					}
+				}
+
+			}
+		}
+
+
+		return false;
+
+		/*$this->db->delete($db_area_branches, array('a_id' => $this->area_id));
+		$this->db->delete($db_areas, array('a_id' => $this->area_id));
+		$this->db->delete($db_posts, array('a_id' => $this->area_id));
+
+		if ($this->db->affected_rows() >= 0) {
+			return true;
+		}
+		return false;*/
 	
 	}
 

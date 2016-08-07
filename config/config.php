@@ -65,6 +65,11 @@ $config['per_page'] = 30;
 $config['base_url_assets']	= 'http://localhost:8080/dmg/structure/assets/';
 
 /*  
+| Post Images
+*/
+$config['base_url_post_images']	= 'D:\xampp\htdocs\dmg\structure\uploads\post_images\\';
+
+/*  
 | Database prefix
 */
 $config['db_prefix'] = 'portal_';

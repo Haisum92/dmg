@@ -1,4 +1,4 @@
-<?php $this->load->view('Owner/Areas/header');?>
+s<?php $this->load->view('Owner/Areas/header');?>
 <!--
 		===========================================================
 		BEGIN PAGE
@@ -709,49 +709,76 @@
                                         <?php echo $this->session->flashdata('failure');?>
                                     </div>
                                 <?php }?>
-								<form id="add_post_form" method="post" name="post_registration_form" class="form-horizontal" action="register.post"
-									  data-bv-message="This value is not valid"
-									  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
-									  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
-									  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+								<form id="add_post_form" method="post" name="post_registration_form" class="form-horizontal" enctype= "multipart/form-data" action="register.post">
 									
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Title</label>
 										<div class="col-lg-5">
-											<input type="text" class="form-control" name="title" value="<?php echo set_value('title');?>" placeholder="xxXXxx" required data-bv-notempty-message="Title is required and cannot be empty" />
+											<input type="text" class="form-control" name="title" id="titles" value="<?php echo set_value('title');?>" placeholder="xxXXxx" />
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Areas</label>
 										<div class="col-lg-5">
-											<select data-placeholder="Choose an Area..." class="form-control chosen-select" name="a_id" tabindex="2" >
-												<option value="Empty">&nbsp;</option>
+											<select data-placeholder="Choose an Area..." class="form-control chosen-select" id="async_area_branch" name="async_area_branch" tabindex="2" >
+												<option value="">&nbsp;</option>
 												<?php foreach ($area_list as $key => $area) 
 												{?>
-													<option value="<?php echo $area->b_id;?>" <?php echo  set_select('a_id[]', $area->b_id, FALSE); ?>><?php echo $area->title;?></option>
+													<option value="<?php echo $area->a_id;?>" <?php echo set_select('async_area_branch', $area->a_id, FALSE); ?>><?php echo $area->title;?></option>
 												<?php }?>
 											</select>
 										</div>
 									</div>
 
 									<div class="form-group">
-										<label class="col-lg-3 control-label">Branches</label>
+										<label class="col-lg-3 control-label" id="branch_label">Branches</label>
 										<div class="col-lg-5">
-											<select data-placeholder="Choose a Branch..." class="form-control chosen-select" name="branch" tabindex="3">
-												<option value="Empty">&nbsp;</option>
-												<?php foreach ($branch_list as $key => $branch) 
-												{?>
-													<option value="<?php echo $branch->b_id;?>" <?php echo set_select('branch[]', $branch->b_id, FALSE); ?>><?php echo $branch->title;?></option>
-												<?php }?>
+											<select data-placeholder="Choose a Branch..." class="form-control chosen-select-area-branches" id="async_branches"  name="async_branches" tabindex="3">
+												<option value="">&nbsp;</option>
 											</select>
 										</div>
 									</div>
+
+									<div class="form-group">
+										<label class="col-lg-3 control-label" for="Branch Manager" id="branch_manager_label">Branch Manager</label>
+										<div class="col-lg-5">
+											<input type="text" class="form-control" name="branch_manager" id="branch_manager" value="<?php echo set_value('branch_manager');?>" placeholder="xxXXxx" readonly />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-lg-3 control-label" for="Excerpt">Excerpt</label>
+										<div class="col-lg-5">
+											<input type="text" class="form-control" name="excerpt" id="excerpt" value="<?php echo set_value('excerpt');?>" placeholder="" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-lg-3 control-label" for="Excerpt">Content</label>
+										<div class="col-lg-5">
+											<textarea class="form-control rounded" name="content" id="content"><?php set_value('content');?></textarea>
+										</div>
+									</div>
+
+									<div class="form-group" id="post-images">
+										<label class="col-lg-3 control-label" for="Images">Images</label>
+											<div class="col-lg-5">
+												<div class="input-group">
+													<input type="text" id="post_images" class="form-control" readonly>
+													<span class="input-group-btn">
+														<span class="btn btn-primary btn-file">
+															<i class="fa fa-plus"></i><input type="file" multiple name="post_image[]">
+														</span>
+													</span>
+												</div><!-- /.input-group -->
+											</div>
+									</div><!-- /.form-group -->
 
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Status</label>
 										<div class="col-lg-5">
-											<select data-placeholder="Choose a status..." class="form-control chosen-select" tabindex="4" name="status">
+											<select data-placeholder="Choose a status..." class="form-control chosen-select" tabindex="4" id="status" name="status">
 												<option value="">&nbsp;</option>
 												<option value="active" <?php echo set_select('status', 'active', FALSE); ?>>Active</option>
 												<option value="suspended" disabled="disabled">Suspended</option>
@@ -761,7 +788,7 @@
 
 									<div class="form-group">
 										<div class="col-lg-9 col-lg-offset-3">
-											<button type="submit" name="register_post" class="btn btn-primary">Register</button>
+											<button type="submit" name="register_post" class="btn btn-primary">Submit</button>
 										</div>
 									</div>
 								</form>

@@ -88,4 +88,39 @@ class UserModel extends CI_Model{
 	
 	}
 
+	public function delete_user()
+	{
+		if (!isset($this->user_id) OR empty($this->user_id)) {
+			return false;
+		}
+
+		$result           = "";
+		$db_users         = $this->config->item('db_users');
+		$db_login_details = $this->config->item('db_login_details');
+
+		$this->db->delete($db_users, array('u_id' => $this->user_id));
+		$this->db->delete($db_login_details, array('u_id' => $this->user_id));
+
+		if ($this->db->affected_rows() >= 0) {
+			return true;
+		}
+		return false;
+		/*$query = "DELETE FROM $db_users WHERE u_id = ".$this->user_id.";
+				  DELETE FROM $db_login_details WHERE u_id = ".$this->user_id."; ";
+
+		$result = $this->db->query($query);
+
+		$query = "DELETE FROM $db_users WHERE u_id = ".$this->user_id.";
+				  DELETE FROM $db_login_details WHERE u_id = ".$this->user_id."; ";
+
+		$result = $this->db->query($query);
+
+		if ($result)
+			return true;
+
+		return false;
+		*/
+	
+	}
+
 }

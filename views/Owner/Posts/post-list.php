@@ -709,8 +709,10 @@
 											<th>Sr #</th>
 											<th>Title</th>
 											<th>Area</th>
+											<th>Branch</th>
 											<th>Added By</th>
 											<th>Added Date</th>
+											<th>Status</th>
 											<th>Options</th>
 										</tr>
 									</thead>

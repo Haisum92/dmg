@@ -732,7 +732,7 @@
 											<?php }else{?>
 											<button class="btn btn-info btn-perspective" onclick="window.location.href='register.branch.menu/<?php echo $branch->b_id;?>';">Assign Menu</button>
 											<?php }?>
-											<button class="btn btn-warning btn-perspective">Edit</button>
+											<button class="btn btn-warning btn-perspective" onclick="window.location.href='branch.edit/<?php echo $branch->b_id;?>';">Edit</button>
 											<button class="btn btn-danger btn-perspective">Delete</button>
 										</td>
 									</tr>

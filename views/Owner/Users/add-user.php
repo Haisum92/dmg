@@ -708,15 +708,11 @@
                                         <?php echo $this->session->flashdata('failure');?>
                                     </div>
                                 <?php }?>
-								<form id="FormExample1" method="post" name="user_registration_form" class="form-horizontal" action="register.user"
-									  data-bv-message="This value is not valid"
-									  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
-									  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
-									  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+								<form id="user_registration_form" method="post" name="user_registration_form" class="form-horizontal" action="register.user">
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Full name</label>
 										<div class="col-lg-5">
-											<input type="text" class="form-control" name="full_name" placeholder="Jhon Doe" required data-bv-notempty-message="The Full name is required and cannot be empty" />
+											<input type="text" class="form-control" name="full_name" id="full_name" placeholder="Jhon Doe" />
 										</div>
 									</div>
 
@@ -744,20 +740,14 @@
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Password</label>
 										<div class="col-lg-5">
-											<input type="password" class="form-control" name="password"
-												   required data-bv-notempty-message="The password is required and cannot be empty"
-												   data-bv-identical="true" data-bv-identical-field="confirmPassword" data-bv-identical-message="The password and its confirm are not the same"
-												   data-bv-different="true" data-bv-different-field="username" data-bv-different-message="The password cannot be the same as username" placeholder="xxxxxxXXxxX" />
+											<input type="password" class="form-control" name="password" id="password" placeholder="xxxxxxXXxxX" />
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Retype password</label>
 										<div class="col-lg-5">
-											<input type="password" class="form-control" name="confirmPassword"
-												   required data-bv-notempty-message="The confirm password is required and cannot be empty"
-												   data-bv-identical="true" data-bv-identical-field="password" data-bv-identical-message="The password and its confirm are not the same"
-												   data-bv-different="true" data-bv-different-field="username" data-bv-different-message="The password cannot be the same as username" placeholder="xxxxxxXXxxX"/>
+											<input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="xxxxxxXXxxX"/>
 										</div>
 									</div>
 
@@ -766,7 +756,7 @@
 										<div class="col-lg-5">
 											<div class="radio">
 												<label>
-													<input type="radio" name="gender" value="male" required data-bv-notempty-message="The gender is required" /> Male
+													<input type="radio" name="gender" value="male" /> Male
 												</label>
 											</div>
 											<div class="radio">
@@ -785,15 +775,15 @@
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Contact Number</label>
 										<div class="col-lg-5">
-											<input class="form-control" name="contact_no" type="text" data-bv-emailaddress-message="The contact number is requried" placeholder="12233422332" />
+											<input class="form-control" name="contact_no" id="contact_no" type="text" placeholder="12233422332" />
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Role</label>
 										<div class="col-lg-5">
-											<select data-placeholder="Choose a Country..." class="form-control chosen-select" tabindex="2" name="role">
-												<option value="Empty">&nbsp;</option>
+											<select data-placeholder="Choose a Country..." class="form-control chosen-select" tabindex="2" name="role" id="role">
+												<option value="">&nbsp;</option>
 												<option value="admin">Manager</option>
 												<option value="enduser">User</option>
 												<option value="superadmin" disabled="disabled">Administrator</option>
@@ -804,8 +794,8 @@
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Status</label>
 										<div class="col-lg-5">
-											<select data-placeholder="Choose a user status..." class="form-control chosen-select" tabindex="3" name="status">
-												<option value="Empty">&nbsp;</option>
+											<select data-placeholder="Choose a user status..." class="form-control chosen-select" tabindex="3" name="status" id="status">
+												<option value="">&nbsp;</option>
 												<option value="active">Active</option>
 												<option value="pending">Pending</option>
 												<option value="suspended" disabled="disabled">Suspended</option>

@@ -709,24 +709,20 @@
                                         <?php echo $this->session->flashdata('failure');?>
                                     </div>
                                 <?php }?>
-								<form id="add_branch_form" method="post" name="branch_registration_form" class="form-horizontal" action=""
-									  data-bv-message="This value is not valid"
-									  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
-									  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
-									  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+								<form id="add_branch_form" method="post" name="branch_registration_form" class="form-horizontal" action="../menu.edit/<?php echo $menu_data[0]->m_id;?>" >
 									
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Title</label>
 										<div class="col-lg-5">
-											<input type="text" class="form-control" name="title" value="<?php echo $menu_data[0]->title; ?>" placeholder="xxXXxx" required data-bv-notempty-message="Title is required and cannot be empty" />
+											<input type="text" class="form-control" name="title" id="title" value="<?php echo $menu_data[0]->title; ?>" placeholder="xxXXxx"/>
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Status</label>
 										<div class="col-lg-5">
-											<select data-placeholder="Choose a status..." class="form-control chosen-select" tabindex="4" name="status">
-												<option value="Empty">&nbsp;</option>
+											<select data-placeholder="Choose a status..." class="form-control chosen-select" tabindex="4" name="status" id="status">
+												<option value="">&nbsp;</option>
 												<option value="active" <?php echo ($menu_data[0]->status == 'active') ? 'selected' : ''; ?>>Active</option>
 												<option value="suspended" <?php echo ($menu_data[0]->status == 'suspended') ? 'selected' : ''; ?>>Suspended</option>
 											</select>
@@ -736,6 +732,7 @@
 									<div class="form-group">
 										<div class="col-lg-9 col-lg-offset-3">
 											<button type="submit" name="edit_menu" class="btn btn-primary">Update</button>
+											<button type="button" name="cancel_edit_menu" class="btn btn-primary" onclick="window.location.href='../menu.all';">Cancel</button>
 										</div>
 									</div>
 								</form>

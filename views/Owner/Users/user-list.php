@@ -738,7 +738,7 @@
 										<td>
 											<button class="btn btn-info btn-perspective" onclick="window.location.href='user.view/<?php echo $user->u_id;?>';">View</button>
 											<button class="btn btn-warning btn-perspective" onclick="window.location.href='user.edit/<?php echo $user->u_id;?>';">Edit</button>
-											<button class="btn btn-danger btn-perspective">Delete</button>
+											<button class="btn btn-danger btn-perspective" onclick="confirmDelete('Please make sure that on deleting a user all of its associated data will be removed, do you still think you want to remove user?','user.vanish/<?php echo $user->u_id;?>');">Delete</button>
 										</td>
 									</tr>
 								<?php }?>

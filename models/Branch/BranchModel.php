@@ -49,15 +49,19 @@ class BranchModel extends CI_Model{
 		$db_branches = $this->config->item('db_branches');
 		
 		$title           = "'".@mysql_real_escape_string($this->input->post('title'))."'";
-		$area_id         = "'".@mysql_real_escape_string($this->input->post('a_id'))."'";
-		$status          = $this->input->post('status');
+		$manager         = "'".@mysql_real_escape_string($this->input->post('manager'))."'";
+		$email           = "'".@mysql_real_escape_string($this->input->post('email'))."'";
+		$mobile          = "'".@mysql_real_escape_string($this->input->post('mobile'))."'";
+		$status          = "'".$this->input->post('status')."'";
 		$cur_user_detail = $this->session->userdata('user_details');
 		$u_id            = $cur_user_detail->u_id;
 
 		$edit_query = "UPDATE $db_branches SET 
-						title  = '$title', 
-						a_id   = '$area_id', 
-						status = '$status'
+						title   = $title,
+						manager = $manager,
+						email   = $email, 
+						mobile  = $mobile,
+						status  = $status
 						WHERE b_id = '$branch_id'
 						";
 		

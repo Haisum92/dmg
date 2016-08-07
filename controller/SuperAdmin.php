@@ -173,6 +173,24 @@ class SuperAdmin extends MY_Controller {
 	
 	}
 
+	public function single_delete_user($user_id = '')
+	{
+		if (empty($user_id) or !is_numeric($user_id)) 
+		{
+			$this->session->set_flashdata('failure', 'Please select a user first');
+			redirect('owner/users.all');
+		}
+		
+		$this->load->model("User/UserModel");
+		$this->UserModel->user_id = $user_id;
+
+		if ($this->UserModel->delete_user())
+		{
+			$this->session->set_flashdata('success', 'User has been deleted successfully');
+			redirect('owner/users.all');
+		}
+	}
+
 	public function add_area()
 	{
 		$data['active_nav'] = "add_area";
@@ -401,9 +419,9 @@ class SuperAdmin extends MY_Controller {
 	{
 		$title = $this->input->post('title');
 		if ($title == $db_title) {
-            $this->form_validation->set_rules('title','Title','required|xss_clean|trim|alpha|min_length[3]|max_length[12]');
+            $this->form_validation->set_rules('title','Title','required|xss_clean|trim|min_length[3]|max_length[12]|callback_alphaspace_check');
         } else {
-            $this->form_validation->set_rules('title','Title','required|xss_clean|trim|alpha|is_unique[portal_areas.title]|min_length[3]|max_length[12]');
+            $this->form_validation->set_rules('title','Title','required|xss_clean|trim|is_unique[portal_areas.title]|min_length[3]|max_length[12]|callback_alphaspace_check');
         }
 
 		$this->form_validation->set_rules('status','Status','required|xss_clean|trim');
@@ -415,6 +433,24 @@ class SuperAdmin extends MY_Controller {
 			return true;
 		}
 	
+	}
+
+	public function single_delete_area($area_id = '')
+	{
+		if (empty($area_id) or !is_numeric($area_id)) {
+			$this->session->set_flashdata('failure', 'Please select an area first');
+			redirect('owner/area.all');
+		}
+
+		$this->load->model("Area/AreaModel");
+		$this->AreaModel->area_id = $area_id;
+
+		if ($this->AreaModel->delete_area())
+		{
+			$this->session->set_flashdata('success', 'Area has been deleted successfully');
+			redirect('owner/area.all');
+		}
+
 	}
 
 	public function add_branch()
@@ -501,7 +537,7 @@ class SuperAdmin extends MY_Controller {
 		$a_obj->load        = array('added_by','area');
 
 		$data['branch_data'] = $this->BranchLibrary->get_all($a_obj);
-		// echo '<pre>';print_r($data['user_data']);echo '</pre>';
+		// echo '<pre>';print_r($data['branch_data']);echo '</pre>';
 		$this->load->view('Owner/Branches/branch-single',$data);
 
 	}
@@ -537,7 +573,7 @@ class SuperAdmin extends MY_Controller {
 
 			if ( ($this->BranchModel->edit_branch($branch_id)) !=  NULL) 
 			{
-				$this->session->set_flashdata('success', 'Branch Edited successfully');
+				$this->session->set_flashdata('success', 'Branch updated successfully');
 				redirect('owner/branch.all',$data);
 
 			}else{
@@ -555,13 +591,14 @@ class SuperAdmin extends MY_Controller {
 	{
 		$title = $this->input->post('title');
 		if ($title == $db_title) {
-            $this->form_validation->set_rules('title','Title','required|xss_clean|trim|alpha|min_length[3]|max_length[12]');
+            $this->form_validation->set_rules('title','Title','required|xss_clean|trim|min_length[3]|max_length[22]|callback_alphaspace_check');
         } else {
-            $this->form_validation->set_rules('title','Title','required|xss_clean|trim|alpha|is_unique[portal_branches.title]|min_length[3]|max_length[12]');
+            $this->form_validation->set_rules('title','Title','required|xss_clean|trim|is_unique[portal_branches.title]|min_length[3]|max_length[12]|callback_alphaspace_check');
         }
 
-		//$this->form_validation->set_rules('manager','Manager','required|xss_clean|trim|alpha|min_length[3]|max_length[12]');
-		$this->form_validation->set_rules('a_id','Area','required|xss_clean|trim');
+		$this->form_validation->set_rules('manager','Manager','required|xss_clean|trim|min_length[3]|max_length[32]|callback_alphaspace_check');
+		$this->form_validation->set_rules('email','Email','required|xss_clean|trim|valid_email');
+		$this->form_validation->set_rules('mobile','Mobile','required|xss_clean|trim');
 		$this->form_validation->set_rules('status','Status','required|xss_clean|trim');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
 
@@ -784,7 +821,7 @@ class SuperAdmin extends MY_Controller {
 		$a_obj->load        = array('added_by');
 
 		$data['menu_data'] = $this->MenuLibrary->get_all($a_obj);
-
+		// echo '<pre>';print_r($data['menu_data']);echo '</pre>';
 		$data['active_nav'] = "edit_menu";
 		
 		$db_title = $data['menu_data'][0]->title;
@@ -1030,32 +1067,94 @@ class SuperAdmin extends MY_Controller {
 		$data['active_nav'] = "add_post";
 		
 		$this->load->model('Post/PostLibrary');
+		$this->load->model('Area/AreaLibrary');
 
 		$a_obj        = new STDClass;
 		$a_obj->start = 0;
 		$a_obj->end   = 1000;
 
-		// $data['area_list'] = $this->MenuLibrary->get_all($a_obj);
+		$data['area_list'] = $this->AreaLibrary->get_all($a_obj);
 
-		if($this->__preCheckAuthenticateMenu())
+		if($this->__preCheckAuthenticateAddPost())
 		{
-			$this->load->model('Menu/MenuModel');
+			$this->load->library('upload');
+			$this->load->model('Post/PostModel');
 
-			if ( ($this->MenuModel->add_menu()) !=  NULL) 
+
+			if ( ($post_id = $this->PostModel->add_post()) !=  NULL) 
 			{
-				$this->session->set_flashdata('success', 'Menu added successfully');
-				redirect('owner/menu.all',$data);
+				$config['upload_path']          = './structure/uploads/post_images/'.$post_id;
+                $config['allowed_types']        = 'gif|jpg|png';
+                $config['max_size']             = 2047.99707;
+                $config['max_width']            = 1024;
+                $config['max_height']           = 768;
+                $config['image_prefix']         = $post_id; // Custom introduced required for image prefix
+                
+				$files   = $_FILES;
+				$cpt     = count($_FILES['post_image']['name']);
+
+				if(!file_exists($config['upload_path'])){
+					mkdir($config['upload_path'], 0644);
+					// chmod($config['upload_path'], 0644);
+				}
+
+			    for($i=0; $i<$cpt; $i++)
+			    {           
+					$config['image_count']            = $i;	// Custom introduced required for image prefix
+					$_FILES['post_image']['name']     = $files['post_image']['name'][$i];
+					$_FILES['post_image']['type']     = $files['post_image']['type'][$i];
+					$_FILES['post_image']['tmp_name'] = $files['post_image']['tmp_name'][$i];
+					$_FILES['post_image']['error']    = $files['post_image']['error'][$i];
+					$_FILES['post_image']['size']     = $files['post_image']['size'][$i];
+
+					$this->upload->initialize($config);
+					if(!$this->upload->do_upload('post_image')){
+						$this->session->set_flashdata('error', $this->config->error_msg[0]);
+						$this->load->view('Owner/Posts/add-post', $data);
+					}
+
+					$this->PostModel->image_title = $this->upload->file_name;
+					$this->PostModel->image_path  = $this->upload->upload_path.$this->upload->file_name;
+					$this->PostModel->p_id        = $post_id;
+
+			        if (($this->PostModel->add_post_image()) ==  NULL) 
+			        {
+			        	$this->session->set_flashdata('error', 'There is problem while adding post image');
+						$this->load->view('Owner/Posts/add-post', $data);
+			        }
+			    }
+				$this->session->set_flashdata('success', 'Post added successfully');
+				redirect('owner/post.all',$data);
 
 			}else{
 				// $this->session->set_flashdata('failure', 'Invalid email or Password.');
-				$this->session->set_flashdata('failure', 'There is problem while adding menu');
-				$this->load->view('Owner/Menus/add-menu', $data);
+				$this->session->set_flashdata('failure', 'There is problem while adding post');
+				$this->load->view('Owner/Posts/add-post', $data);
 			}
 			
 		}else{
-			$this->load->view('Owner/Menus/add-menu',$data);	
+			$this->load->view('Owner/Posts/add-post',$data);	
 		}
 
+	}
+
+	private function __preCheckAuthenticateAddPost()
+	{
+		$this->form_validation->set_rules('title','Title','required|xss_clean|trim|is_unique[portal_sections.title]|min_length[3]|max_length[32]|callback_alphaspace_check');
+		$this->form_validation->set_rules('async_area_branch','Area','required|xss_clean|trim');
+		$this->form_validation->set_rules('async_branches','Branch','required|xss_clean|trim');
+		$this->form_validation->set_rules('status','Status','required|xss_clean|trim');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+		if (empty($_FILES['post_image']['name'][0])) {
+			$this->form_validation->set_rules('post_image[]', 'Image', 'required');
+		}
+		if( $this->form_validation->run() === FALSE ){
+			return false;
+		}else{
+			return true;
+		}
+
+		
 	}
 
 	public function post_list()

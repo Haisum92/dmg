@@ -44,6 +44,23 @@ class MenuModel extends CI_Model{
 	
 	}
 
+	public function edit_menu($menu_id)
+	{
+		// echo hash('sha224','admin123'.dmgSalt);
+		$db_menus  = $this->config->item('db_menus');
+		$col_arr   = $vals = array();
+		$insert_id = "";
+		
+		$title   = "'".$this->input->post('title')."'";
+		$status  = "'".$this->input->post('status')."'";
+
+		$sql = "UPDATE $db_menus SET title = $title,status = $status WHERE m_id = $menu_id ";
+		$q_result  = $this->db->query($sql);
+
+		return $q_result;
+	
+	}
+
 	public function get_by_id()
 	{
 		$this->load->model('Menu/MenuLibrary');

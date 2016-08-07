@@ -732,8 +732,8 @@
 													<?php }else{?>
 													<button class="btn btn-info btn-perspective" onclick="window.location.href='register.area.branch/<?php echo $area->a_id;?>';">Assign Branches</button>
 													<?php }?>
-													<button class="btn btn-warning btn-perspective">Edit</button>
-													<button class="btn btn-danger btn-perspective">Delete</button>
+													<button class="btn btn-warning btn-perspective" onclick="window.location.href='area.edit/<?php echo $area->a_id;?>';">Edit</button>
+													<button class="btn btn-danger btn-perspective" onclick="confirmDelete('Please make sure that on deleting an area all of its associated data will be removed, do you still think you want to remove area?','area.vanish/<?php echo $area->a_id;?>');">Delete</button>
 												</td>
 											</tr>
 										<?php }?>

@@ -709,37 +709,33 @@
                                         <?php echo $this->session->flashdata('failure');?>
                                     </div>
                                 <?php }?>
-								<form id="add_branch_form" method="post" name="branch_registration_form" class="form-horizontal" action="register.branch"
-									  data-bv-message="This value is not valid"
-									  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
-									  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
-									  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+								<form id="branch_registration_form" method="post" name="branch_registration_form" class="form-horizontal" action="register.branch">
 									
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Title</label>
 										<div class="col-lg-5">
-											<input type="text" class="form-control" name="title" placeholder="xxXXxx" required data-bv-notempty-message="Title is required and cannot be empty" value="<?php echo set_value('title');?>" />
+											<input type="text" class="form-control" name="title" id="title" placeholder="xxXXxx" value="<?php echo set_value('title');?>" />
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Manager</label>
 										<div class="col-lg-5">
-											<input type="text" class="form-control" name="manager" value="<?php echo set_value('manager');?>" placeholder="xxXXxx" required data-bv-notempty-message="Manager is required and cannot be empty" />
+											<input type="text" class="form-control" name="manager" id="manager" value="<?php echo set_value('manager');?>" placeholder="xxXXxx" />
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Email</label>
 										<div class="col-lg-5">
-											<input type="email" class="form-control" name="email" value="<?php echo set_value('email');?>" placeholder="xxXXxx@xxx.com" required data-bv-notempty-message="Email is required and cannot be empty" />
+											<input type="email" class="form-control" name="email" id="email" value="<?php echo set_value('email');?>" placeholder="xxXXxx@xxx.com" />
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Mobile #</label>
 										<div class="col-lg-5">
-											<input type="text" class="form-control" name="mobile" value="<?php echo set_value('mobile');?>" placeholder="xxXXxxxxx" required data-bv-notempty-message="Mobile is required and cannot be empty" />
+											<input type="text" class="form-control" name="mobile" id="mobile" value="<?php echo set_value('mobile');?>" placeholder="xxXXxxxxx" />
 										</div>
 									</div>
 
@@ -760,7 +756,7 @@
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Status</label>
 										<div class="col-lg-5">
-											<select data-placeholder="Choose a status..." class="form-control chosen-select" tabindex="4" name="status">
+											<select data-placeholder="Choose a status..." class="form-control chosen-select" tabindex="4" name="status" id="status">
 												<option value="">&nbsp;</option>
 												<option value="active" <?php set_select('status','active',FALSE);?>>Active</option>
 												<option value="suspended" disabled="disabled">Suspended</option>
@@ -771,6 +767,7 @@
 									<div class="form-group">
 										<div class="col-lg-9 col-lg-offset-3">
 											<button type="submit" name="register_branch" class="btn btn-primary">Register</button>
+											<button type="button" name="cancel_branch_add" class="btn btn-primary" onclick="window.location.href='branch.all'">Cancel</button>
 										</div>
 									</div>
 								</form>

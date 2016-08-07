@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class AreaModel extends CI_Model{
+class PostModel extends CI_Model{
 
 	public function __construct()
 	{
@@ -23,23 +23,72 @@ class AreaModel extends CI_Model{
 				
 				$vals[] = 'NOW()';
 
+			}elseif ($col == 'a_id' ) {
+				
+				$vals[] = "'".@mysql_real_escape_string($this->input->post('async_area_branch'))."'";
+
+			}elseif ($col == 'b_id' ) {
+				
+				$vals[] = "'".@mysql_real_escape_string($this->input->post('async_branches'))."'";
+
 			}elseif ($col == 'added_by' ){
 
 				$cur_user_detail = $this->session->userdata('user_details');
 				$vals[] = $cur_user_detail->u_id;
 
 			}else{
-				$vals[] =  ( !empty($this->input->post($col)) ) ? "'".@mysql_real_escape_string($this->input->post($col))."'" : "";
+				$vals[] =  ( !empty($this->input->post($col)) ) ? "'".@mysql_real_escape_string($this->input->post($col))."'" : "''";
 			}
 		}
 
 		$col_arr = implode(',',$col_arr);
+		// $vals    = rtrim(implode(',',$vals),',');
 		$vals    = implode(',',$vals);
 
-		$ins_query = "INSERT INTO $db_posts ($col_arr) VALUES ($vals) ";;
+		$ins_query = "INSERT INTO $db_posts ($col_arr) VALUES ($vals) ";
 		$q_result  = $this->db->query($ins_query);
 		$insert_id = $this->db->insert_id();
+				
+		return $insert_id;
+	
+	}
 
+	public function add_post_image()
+	{
+		// echo hash('sha224','admin123'.dmgSalt);
+		$db_post_images = $this->config->item('db_post_images');
+		$col_arr        = $vals = $area_detail = array();
+		$insert_id      = "";
+		$col_arr = array('p_id','image_title','image_path','is_featured','status','added_by','date_added');
+
+		foreach ($col_arr as $key => $col)
+		{
+			if ($col == 'date_added' ) {
+				
+				$vals[] = 'NOW()';
+
+			}elseif ($col == 'status' ) {
+				
+				$vals[] = "'active'";
+
+			}elseif ($col == 'added_by' ){
+
+				$cur_user_detail = $this->session->userdata('user_details');
+				$vals[] = $cur_user_detail->u_id;
+
+			}else{
+				$vals[] =  ( !empty($this->$col) ) ? "'".@mysql_real_escape_string($this->$col)."'" : "''";
+			}
+		}
+
+		$col_arr = implode(',',$col_arr);
+		// $vals    = rtrim(implode(',',$vals),',');
+		$vals    = implode(',',$vals);
+
+		$ins_query = "INSERT INTO $db_post_images ($col_arr) VALUES ($vals) ";
+		$q_result  = $this->db->query($ins_query);
+		$insert_id = $this->db->insert_id();
+		
 		return $insert_id;
 	
 	}

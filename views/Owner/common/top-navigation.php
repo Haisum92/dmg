@@ -76,7 +76,7 @@
 						  </a>
 						  <ul class="dropdown-menu square margin-list-rounded with-triangle">
 							<li <?php if(strpos($active_nav,'add_post') !== false){?>class="active"<?php }?>><a href="<?php echo base_url('owner/register.post');?>">Add Posts</a></li>
-							<li <?php if(strpos($active_nav,'post_list') !== false){?>class="active"<?php }?>><a href="<?php echo base_url('owner/posts.all');?>">View All</a></li>
+							<li <?php if(strpos($active_nav,'post_list') !== false){?>class="active"<?php }?>><a href="<?php echo base_url('owner/post.all');?>">View All</a></li>
 						  </ul>
 						</li>
 						

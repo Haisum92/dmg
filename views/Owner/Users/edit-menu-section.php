@@ -1,4 +1,4 @@
-<?php $this->load->view('Owner/Users/header');?>
+<?php $this->load->view('Owner/Areas/header');?>
 <!--
 		===========================================================
 		BEGIN PAGE
@@ -358,6 +358,7 @@
 			
 			<?php $this->load->view('owner/common/top-navigation');?>
 			
+			
 			<!-- BEGIN SIDEBAR RIGHT HEADING -->
 			<div class="sidebar-right-heading">
 				<ul class="nav nav-tabs square nav-justified">
@@ -677,77 +678,89 @@
 				<div class="container-fluid">
 				
 				<!-- Begin page heading -->
-					<h1 class="page-heading">Menu Managment <!-- <small>Sub heading here</small> --></h1>
+					<h1 class="page-heading">Menu Section Managment <!-- <small>Sub heading here</small> --></h1>
 					<!-- End page heading -->
 				
 					<!-- Begin breadcrumb -->
 					<ol class="breadcrumb default square rsaquo sm">
 						<li><a href="<?php echo base_url();?>"><i class="fa fa-home"></i></a></li>
-						<li><a href="<?php echo base_url('owner/branch.all');?>">Menu</a></li>
-						<li class="active">All Menus</li>
+						<li><a href="<?php //echo base_url('owner/menu.all');?>">Menu Sections</a></li>
+						<li class="active">Edit Menu Sections</li>
 					</ol>
 					<!-- End breadcrumb -->
 
-					<!-- BEGIN DATA TABLE -->
-					<div class="the-box">
-						<?php if ($this->session->flashdata('success') != ""){?>
-                            <div class="alert alert-success">
-                                <?php echo $this->session->flashdata('success');?>
-                            </div>
-                        <?php }?>
-                        <?php if ($this->session->flashdata('failure') != ""){?>
-                            <div class="alert alert-danger">
-                                <?php echo $this->session->flashdata('failure');?>
-                            </div>
-                        <?php }?>
-                        <?php
-                        if(count($menu_list)):?>
-							<div class="table-responsive">
-								<table class="table table-striped table-hover" id="datatable-example">
-									<thead class="the-box dark full">
-										<tr>
-											<th>Sr #</th>
-											<th>Title</th>
-											<th>Status</th>
-											<th>Added By</th>
-											<th>Added Date</th>
-											<th>Options</th>
-										</tr>
-									</thead>
-									<tbody>
 
-										<?php foreach ($menu_list as $key => $menu)
-										{?>
-											<tr class="<?php if($key %2 == 0){ ?>even <?php } else{?> odd <?php } ?>">
-												<td><?php echo $key+1;?></td>
-												<td><?php echo $menu->title;?></td>
-												<td><?php echo ucfirst($menu->status);?></td>
-												<td><?php echo $menu->add_by;?></td>
-												<td><?php echo $menu->date_added;?></td>
-												<td>
-													<button class="btn btn-info btn-perspective" onclick="window.location.href='menu.view/<?php echo $menu->m_id;?>';">View</button>
-													<?php if ($menu->section_exists == 'yes') { ?>
-														<button class="btn btn-warning btn-perspective" onclick="window.location.href='revise.menu.section/<?php echo $menu->m_id;?>';">Edit Section</button>
-													<?php }else{?>
-													<button class="btn btn-info btn-perspective" onclick="window.location.href='register.menu.section/<?php echo $menu->m_id;?>';">Assign Section</button>
-													<?php }?>
-													<button class="btn btn-warning btn-perspective" onclick="window.location.href='menu.edit/<?php echo $menu->m_id;?>';">Edit</button>
-													<button class="btn btn-danger btn-perspective" onclick="confirmDelete('Please make sure that on deleting menu all of its associated data will be removed, do you still think you want to remove menu?','menu.vanish/<?php echo $menu->m_id;?>');">Delete</button>
-												</td>
-											</tr>
-										<?php }?>
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="the-box">
+								<h4 class="small-title">Revise Menu Sections</h4>
+								<?php if(validation_errors())
+									  {
+									  	echo validation_errors();
+									  }
+								?>
+								<?php if ($this->session->flashdata('success') != ""){?>
+                                    <div class="alert alert-success">
+                                        <?php echo $this->session->flashdata('success');?>
+                                    </div>
+                                <?php }?>
+                                <?php if ($this->session->flashdata('failure') != ""){?>
+                                    <div class="alert alert-danger">
+                                        <?php echo $this->session->flashdata('failure');?>
+                                    </div>
+                                <?php }?>
+								<form id="add_branch_form" method="post" name="branch_registration_form" class="form-horizontal" action="../revise.menu.section/<?php echo $menu_data[0]->m_id;?>"
+									  data-bv-message="This value is not valid"
+									  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+									  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+									  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+									
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Title</label>
+										<div class="col-lg-5">
+											<input type="text" class="form-control" name="title" placeholder="xxXXxx" required data-bv-notempty-message="Title is required and cannot be empty" value="<?php echo $menu_data[0]->title;?>" disabled="disabled" />
+										</div>
+									</div>
 
-										
-									</tbody>
-								</table>
-							</div><!-- /.table-responsive -->
-						<?php else:?>
-							<div class="alert alert-warning">
-                                <?php echo 'No record found';?>
-                            </div>
-						<?php endif; ?>
-					</div><!-- /.the-box .default -->
-					<!-- END DATA TABLE -->
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Sections</label>
+										<div class="col-lg-5">
+											<select data-placeholder="Choose a Section..." class="form-control chosen-select" name="section[]" tabindex="2" multiple>
+												<option value="">&nbsp;</option>
+												<?php foreach ($section_list as $key => $section) 
+												{?>
+													<option value="<?php echo $section->s_id;?>" 
+													<?php if(in_array($section->s_id,$menu_section)){?> selected <?php } ?> <?php echo  set_select('menu[]', $menu_data[0]->m_id, FALSE); ?>
+														>
+													<?php echo $section->title;?>
+													</option>
+												<?php }?>
+											</select>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Status</label>
+										<div class="col-lg-5">
+											<select data-placeholder="Choose a status..." class="form-control chosen-select" tabindex="4" name="status">
+												<option value="">&nbsp;</option>
+												<option value="active" <?php if($menu_data[0]->status == "active"){?> selected <?php } ?> <?php echo set_select('status[]', 'active', FALSE); ?>>Active</option>
+												<option value="suspended" <?php if($menu_data[0]->status == "suspended"){?> selected <?php } ?> <?php echo set_select('status[]', 'active', FALSE); ?>>Suspended</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<div class="col-lg-9 col-lg-offset-3">
+											<button type="submit" name="register_menu_section" class="btn btn-primary">Register</button>
+											<button type="button" name="cancel_registering_menu_section" class="btn btn-primary" onclick="window.location.href='../menu.all'">Cancel</button>
+										</div>
+									</div>
+								</form>
+							</div><!-- /.the-box -->
+						</div><!-- /.col-sm-12 -->
+						
+					</div><!-- /.row -->
 				
 				</div><!-- /.container-fluid -->
 				
@@ -755,7 +768,7 @@
 				
 				<!-- BEGIN FOOTER -->
 				<footer>
-					&copy; <?php echo date('Y');?> <a href="<?php echo base_url();?>">Directory Managment</a><br />
+					&copy; <?php echo date('Y');?> <a href="#fakelink">Directory Managment</a><br />
 					Design by <a href="mailto:usman.haisum@gmail.com" target="_blank">Haisum</a>.
 				</footer>
 				<!-- END FOOTER -->

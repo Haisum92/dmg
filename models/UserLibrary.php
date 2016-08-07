@@ -15,6 +15,7 @@ class UserLibrary extends CI_Model{
 		$db_users  = $this->config->item('db_users');
 		$condition = $join = $custom_select =  array();
 		$order_by  = "";
+		$result    = NULL;
 
 		$start = (isset($params->start) && !empty($params->start) ? $params->start : 0);
 		$end = (isset($params->end) && !empty($params->end) ? $params->end : 20);
@@ -26,7 +27,7 @@ class UserLibrary extends CI_Model{
 			$condition[] = "u.email = '".@mysql_real_escape_string($params->email)."'";
 
 		if (isset($params->role))
-			$condition[] = "u.role = ;".@mysql_real_escape_string($params->role)."'";
+			$condition[] = "u.role = '".@mysql_real_escape_string($params->role)."'";
 
 		if (isset($params->contact))
 			$condition[] = "u.contact_no LIKE ".'%'.@mysql_real_escape_string($params->contact).'%';

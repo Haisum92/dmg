@@ -717,7 +717,7 @@
 	                        			<label for="Status">Status</label>: <?php echo ucfirst($branch_data[0]->status);?>
 	                        		</div>
 	                        		<div class="col-lg-4">
-	                        			<label for="Status">Area</label>: <?php echo ucfirst($branch_data[0]->area_title);?>
+	                        			<label for="Status">Manager</label>: <?php echo ucfirst($branch_data[0]->manager);?>
 	                        		</div>
 	                        	</div>
 	                        </div>
@@ -727,8 +727,21 @@
 	                        <div class="col-lg-12">
 	                        	<div class="row">
 	                        		<div class="col-lg-4">
+	                        			<label for="Email">Email</label>: <?php echo $branch_data[0]->email;?>
+	                        		</div>
+	                        		<div class="col-lg-4">
+	                        			<label for="Mobile">Mobile</label>: <?php echo $branch_data[0]->mobile;?>
+	                        		</div>
+	                        		<div class="col-lg-4">
 	                        			<label for="Add By">Add By</label>: <?php echo $branch_data[0]->add_by;?>
 	                        		</div>
+	                        	</div>
+	                        </div>
+	                    </div>
+
+	                    <div class="row">
+	                        <div class="col-lg-12">
+	                        	<div class="row">
 	                        		<div class="col-lg-4">
 	                        			<label for="Added Date">Added Date</label>: <?php echo date("M, d, Y @ g:i:s a", strtotime($branch_data[0]->date_added));?>
 	                        		</div>

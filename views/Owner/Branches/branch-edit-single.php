@@ -709,52 +709,42 @@
                                         <?php echo $this->session->flashdata('failure');?>
                                     </div>
                                 <?php }?>
-								<form id="add_branch_form" method="post" name="branch_registration_form" class="form-horizontal" action="" novalidate 
-									  data-bv-message="This value is not valid"
-									  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
-									  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
-									  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+
+								<form id="edit_branch_form" method="post" name="edit_branch_form" class="form-horizontal" action="../branch.edit/<?php echo $branch_data[0]->b_id;?>">
 									
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Title</label>
 										<div class="col-lg-5">
-											<input type="text" class="form-control" name="title" placeholder="xxXXxx" value="<?php echo $branch_data[0]->title; ?>" required data-bv-notempty-message="Title is required and cannot be empty" />
+											<input type="text" class="form-control" name="title" id="title" placeholder="xxXXxx" value="<?php echo $branch_data[0]->title; ?>" />
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Manager</label>
 										<div class="col-lg-5">
-											<input type="text" class="form-control" name="manager" placeholder="xxXXxx" value="<?php //echo $branch_data[0]->manager; ?>" required data-bv-notempty-message="Manager is required and cannot be empty" />
+											<input type="text" class="form-control" name="manager" id="manager" placeholder="xxXXxx" value="<?php echo $branch_data[0]->manager; ?>"/>
 										</div>
 									</div>
 
 									<div class="form-group">
-										<label class="col-lg-3 control-label">Area</label>
+										<label class="col-lg-3 control-label">Email</label>
 										<div class="col-lg-5">
-											<select data-placeholder="Choose an area..." class="form-control chosen-select" tabindex="3" name="a_id">
-												<option value="Empty">&nbsp;</option>
-												<?php
-													$options = ''; 
-													foreach ($area_list as $key => $area)
-													  {
-														$options .= "<option value='$area->a_id'";
-														if ($area->a_id == $branch_data[0]->a_id) {
-															$options .= " selected";
-														}
-														$options .= ">$area->title</option>";
-														}
-														echo $options;
-												?>
-											</select>
+											<input type="email" class="form-control" name="email" id="email" placeholder="xxXXxx" value="<?php echo $branch_data[0]->email; ?>"/>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Mobile</label>
+										<div class="col-lg-5">
+											<input type="text" class="form-control" name="mobile" id="mobile" placeholder="xxXXxx" value="<?php echo $branch_data[0]->mobile; ?>"/>
 										</div>
 									</div>
 
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Status</label>
 										<div class="col-lg-5">
-											<select data-placeholder="Choose a status..." class="form-control chosen-select" tabindex="4" name="status">
-												<option value="Empty">&nbsp;</option>
+											<select data-placeholder="Choose a status..." class="form-control chosen-select" tabindex="4" name="status" id="status">
+												<option value="">&nbsp;</option>
 												<option value="active" <?php echo ($branch_data[0]->status == 'active') ? 'selected' : ''; ?>>Active</option>
 												<option value="suspended" <?php echo ($branch_data[0]->status == 'suspended') ? 'selected' : ''; ?>>Suspended</option>
 											</select>
@@ -764,6 +754,7 @@
 									<div class="form-group">
 										<div class="col-lg-9 col-lg-offset-3">
 											<button type="submit" name="edit_branch" class="btn btn-primary">Update</button>
+											<button type="button" name="cancel_branch_edit" class="btn btn-primary" onclick="window.location.href='../branch.all'">Cancel</button>
 										</div>
 									</div>
 								</form>
