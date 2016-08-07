@@ -1024,6 +1024,72 @@ class SuperAdmin extends MY_Controller {
 	
 	}
 
+	public function single_edit_section($section_id = '')
+	{
+		if (empty($section_id) OR !is_numeric($section_id)){
+			$this->session->set_flashdata('failure', 'Please select section first');
+			redirect('owner/section.all');
+		}
+
+		$data['active_nav'] = "single_edit_section";
+		
+		$this->load->model('Section/SectionModel');
+
+		$this->SectionModel->section_id = $section_id;
+		$data['section_data']           = $this->SectionModel->get_by_id();
+
+		if($this->__preCheckAuthenticateEditSection())
+		{
+			$this->load->model('Section/SectionModel');
+
+			if ( ($this->SectionModel->edit_section()) !=  NULL) 
+			{
+				$this->session->set_flashdata('success', 'Section updated successfully');
+				redirect('owner/section.all',$data);
+
+			}else{
+				// $this->session->set_flashdata('failure', 'Invalid email or Password.');
+				$this->session->set_flashdata('failure', 'There is problem while updating section');
+				$this->load->view('Owner/Sections/section-edit-single', $data);
+			}
+			
+		}else{
+			$this->load->view('Owner/Sections/section-edit-single',$data);	
+		}
+
+	}
+
+	private function __preCheckAuthenticateEditSection()
+	{
+		$this->form_validation->set_rules('title','Title','required|xss_clean|trim|min_length[3]|max_length[32]|callback_alphaspace_check');
+		$this->form_validation->set_rules('status','Status','required|xss_clean|trim');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+
+		if( $this->form_validation->run() === FALSE ){
+			return false;
+		}else{
+			return true;
+		}
+	
+	}
+
+	public function single_delete_section($section_id = '')
+	{
+		if (empty($section_id) OR !is_numeric($section_id)){
+			$this->session->set_flashdata('failure', 'Please select section first');
+			redirect('owner/section.all');
+		}
+
+		$this->load->model("Section/SectionModel");
+		$this->SectionModel->section_id = $section_id;
+
+		if ($this->SectionModel->delete_section())
+		{
+			$this->session->set_flashdata('success', 'Section has been deleted successfully');
+			redirect('owner/section.all');
+		}
+	}
+
 	public function section_list()
 	{
 		$this->load->model('Section/SectionLibrary');

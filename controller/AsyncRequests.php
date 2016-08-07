@@ -78,6 +78,10 @@ class AsyncRequests extends MY_Controller {
 					$this->load->model('Branch/BranchLibrary');
 					$b_obj            = new STDClass;
 					$b_obj->branch_id = $this->input->post('b_id');
+					
+					if ($this->input->post('load_param') !== NULL)
+						$b_obj->load = array($this->input->post('load_param'));
+					
 					$branch_record    = $this->BranchLibrary->get_all($b_obj);
 
 					echo json_encode($branch_record);

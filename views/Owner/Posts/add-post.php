@@ -1,4 +1,4 @@
-s<?php $this->load->view('Owner/Areas/header');?>
+<?php $this->load->view('Owner/Areas/header');?>
 <!--
 		===========================================================
 		BEGIN PAGE
@@ -518,9 +518,18 @@ s<?php $this->load->view('Owner/Areas/header');?>
 									</div>
 
 									<div class="form-group">
-										<label class="col-lg-3 control-label" for="Branch Manager" id="branch_manager_label">Branch Manager</label>
+										<label class="col-lg-3 control-label" for="Branch Manager" id="branch_manager_label">Manager</label>
 										<div class="col-lg-5">
 											<input type="text" class="form-control" name="branch_manager" id="branch_manager" value="<?php echo set_value('branch_manager');?>" placeholder="xxXXxx" readonly />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-lg-3 control-label" for="Branch Menu" id="branch_menu_label">Menu</label>
+										<div class="col-lg-5">
+											<select data-placeholder="Choose a Branch Menu..." class="form-control chosen-select-area-branches" id="async_branch_menu"  name="async_branch_menu" tabindex="4">
+												<option value="">&nbsp;</option>
+											</select>
 										</div>
 									</div>
 
@@ -544,7 +553,7 @@ s<?php $this->load->view('Owner/Areas/header');?>
 												<div class="input-group">
 													<input type="text" id="post_images" class="form-control" readonly>
 													<span class="input-group-btn">
-														<span class="btn btn-primary btn-file">
+														<span class="btn btn-info btn-file">
 															<i class="fa fa-plus"></i><input type="file" multiple name="post_image[]">
 														</span>
 													</span>

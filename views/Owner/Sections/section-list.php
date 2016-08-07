@@ -503,8 +503,8 @@
 												<td><?php echo $section->date_added;?></td>
 												<td>
 													<button class="btn btn-info btn-perspective" onclick="window.location.href='section.view/<?php echo $section->s_id;?>';">View</button>
-													<button class="btn btn-warning btn-perspective">Edit</button>
-													<button class="btn btn-danger btn-perspective">Delete</button>
+													<button class="btn btn-warning btn-perspective" onclick="window.location.href='revise.section/<?php echo $section->s_id;?>';">Edit</button>
+													<button class="btn btn-danger btn-perspective" onclick="confirmDelete('Please make sure that on deleting section all of its associated data will be removed, do you still think you want to remove section?','section.vanish/<?php echo $section->s_id;?>');">Delete</button>
 												</td>
 											</tr>
 										<?php }?>
